@@ -79,9 +79,9 @@ document.addEventListener("DOMContentLoaded", function() {
     // Tạo sự kiện scroll cho window để hiển thị nút back-to-top
     window.addEventListener("scroll", function () {
         if (window.pageYOffset > 300) {
-            document.querySelector('.back-to-top').style.display = "block";
+            // document.querySelector('.back-to-top').style.display = "block";
         } else {
-            document.querySelector('.back-to-top').style.display = "none";
+            // document.querySelector('.back-to-top').style.display = "none";
         }
     });
 
