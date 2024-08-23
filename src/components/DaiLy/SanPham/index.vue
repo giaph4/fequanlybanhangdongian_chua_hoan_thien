@@ -198,32 +198,33 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th class="align-middle">1</th>
-                                <th class="align-middle text-center">
-                                    <img style="max-height: 200px;"
-                                        src="https://vesinhairpod.com/wp-content/uploads/2024/04/iPhone-16-1.jpg"
-                                        class="img-fluid" alt="">
-                                </th>
-                                <td class="align-middle text-wrap">Iphone 16</td>
-                                <td class="align-middle text-wrap">iphone-16</td>
-                                <td class="align-middle">100</td>
-                                <td class="align-middle text-end">1000 đ</td>
-                                <td class="align-middle text-end">1000 đ</td>
-                                <td class="align-middle text-wrap">aaaaaaaaaaa</td>
-                                <td class="align-middle text-center">
-                                    <i class="fa-solid fa-newspaper fa-2xl" data-bs-toggle="modal"
-                                        data-bs-target="#moTaChiTiet"></i>
-                                </td>
-                                <td class="align-middle text-center">5</td>
-                                <td class="align-middle">
-                                    <button class="btn btn-primary me-2" data-bs-toggle="modal"
-                                        data-bs-target="#suaSP">Cập
-                                        nhật</button>
-                                    <button class="btn btn-danger" data-bs-toggle="modal"
-                                        data-bs-target="#delSP">Xóa</button>
-                                </td>
-                            </tr>
+                            <template v-for="(value, index) in list_san_pham" :key="index">
+                                <tr>
+                                    <th class="align-middle">{{ index + 1 }}</th>
+                                    <th class="align-middle text-center">
+                                        <img style="max-height: 200px;" v-bind:src="value.hinh_anh" class="img-fluid"
+                                            alt="">
+                                    </th>
+                                    <td class="align-middle text-wrap">{{ value.ten_san_pham }}</td>
+                                    <td class="align-middle text-wrap">{{ value.slug_san_pham }}</td>
+                                    <td class="align-middle">{{ value.so_luong }}</td>
+                                    <td class="align-middle text-end">{{ value.don_gia }}</td>
+                                    <td class="align-middle text-end">{{ value.gia_khuyen_mai }}</td>
+                                    <td class="align-middle text-wrap">{{ value.mo_ta_ngan }}</td>
+                                    <td class="align-middle text-center">
+                                        <i class="fa-solid fa-newspaper fa-2xl" data-bs-toggle="modal"
+                                            data-bs-target="#moTaChiTiet"></i>
+                                    </td>
+                                    <td class="align-middle text-center">{{ value.sao_danh_gia }}</td>
+                                    <td class="align-middle">
+                                        <button class="btn btn-primary me-2" data-bs-toggle="modal"
+                                            data-bs-target="#suaSP">Cập
+                                            nhật</button>
+                                        <button class="btn btn-danger" data-bs-toggle="modal"
+                                            data-bs-target="#delSP">Xóa</button>
+                                    </td>
+                                </tr>
+                            </template>
                         </tbody>
                     </table>
                 </div>
@@ -248,6 +249,7 @@ export default {
                 'sao_danh_gia': '',
             },
             list_danh_muc: [],
+            list_san_pham: [],
 
         }
     },
@@ -255,16 +257,23 @@ export default {
 
     mounted() {
         this.loadDanhMuc();
+        this.loadSanPham();
     },
     methods: {
         loadDanhMuc() {
             axios
-                .get('http://127.0.0.1:8000/api/danh-muc/data')
+                .get('http://127.0.0.1:8000/api/admin/danh-muc/data')
                 .then((res) => {
                     this.list_danh_muc = res.data.data;
                 })
         },
-
+        loadSanPham() {
+            axios
+                .get('http://127.0.0.1:8000/api/dai-ly/san-pham/data')
+                .then((res) => {
+                    this.list_san_pham = res.data.data;
+                })
+        },
         themMoi() {
             axios
                 .post('http://127.0.0.1:8000/api/dai-ly/san-pham/create', this.create)

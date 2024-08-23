@@ -8,35 +8,28 @@
              <div class="card-body">
                 <div class="mb-2">
                    <label>Tên Danh Mục</label>
-                   <input
+                   <input v-model="create_danh_muc.ten_danh_muc"
                       type="text" class="form-control mt-2">
                 </div>
                 <div class="mb-2">
                    <label>Slug Danh Mục</label>
-                   <input type="text"
+                   <input v-model="create_danh_muc.slug_danh_muc" type="text"
                       class="form-control mt-2">
                 </div>
                 <div class="mb-2">
                    <label>Icon Danh Mục</label>
-                   <input type="text" class="form-control mt-2">
+                   <input v-model="create_danh_muc.icon" type="text" class="form-control mt-2">
                 </div>
                 <div class="mb-2">
                    <label>Tình trạng</label>
-                   <select class="form-control mt-2">
+                   <select v-model="create_danh_muc.tinh_trang" class="form-control mt-2">
                       <option value="0">Tạm Tắt</option>
                       <option value="1">Hiển Thị</option>
                    </select>
                 </div>
-                <div class="mb-2">
-                   <label>Danh Mục Cha</label>
-                   <select class="form-control mt-2">
-                      <option value="1">Cha là ai?</option>
-                      <option value="0">Có cha rồi</option>
-                   </select>
-                </div>
              </div>
              <div class="card-footer text-end">
-                <button class="btn btn-primary">Thêm Mới</button>
+                <button v-on:click="themMoi()" class="btn btn-primary">Thêm Mới</button>
              </div>
           </div>
        </div>
@@ -54,23 +47,25 @@
                          <th class="text-center">Slug Danh Mục</th>
                          <th class="text-center">Icon</th>
                          <th class="text-center">Tình Trạng</th>
-                         <th class="text-center">Danh Mục Cha</th>
                          <th class="text-center">Action</th>
                       </tr>
                    </thead>
                    <tbody>
-                         <tr>
-                            <th class="align-middle">1</th>
-                            <td class="align-middle">Điện Thoại</td>
-                            <td class="align-middle">dien-thoai</td>
+                     <template v-for="(value, index) in list_danh_muc" :key="index">
+                        <tr>
+                            <th class="align-middle">{{ index + 1 }}</th>
+                            <td class="align-middle">{{ value.ten_danh_muc }}</td>
+                            <td class="align-middle">{{ value.slug_danh_muc }}</td>
                             <td class="align-middle text-center">
-                                <i class="fa-solid fa-mobile-screen-button"></i>
+                                <span v-html="value.icon"></span>
                             </td>
                             <td class="align-middle text-center">
-                               <button class="btn btn-success">Hiển thị</button>
-                            </td>
-                            <td class="align-middle text-center">
-                               <i>Root</i>
+                              <template v-if="value.tinh_trang == 1">
+                                 <button v-on:click="changeStatus(value)" class="btn btn-success">Hiển thị</button>
+                              </template>
+                              <template v-else>
+                                 <button v-on:click="changeStatus(value)" class="btn btn-warning">Tạm tắt</button>
+                              </template>
                             </td>
                             <td class="align-middle text-center">
                                <button class="btn btn-primary me-2"
@@ -79,6 +74,7 @@
                                   data-bs-target="#delModal">Xóa</button>
                             </td>
                          </tr>
+                     </template>
                    </tbody>
                 </table>
              </div>
@@ -110,13 +106,6 @@
                    <select class="form-control mt-2">
                       <option value="0">Tạm Tắt</option>
                       <option value="1">Hiển Thị</option>
-                   </select>
-                </div>
-                <div class="mb-2">
-                   <label>Danh Mục Cha</label>
-                   <select class="form-control mt-2">
-                      <option value="1">Cha là ai?</option>
-                      <option value="0">Có cha rồi</option>
                    </select>
                 </div>
              </div>
@@ -151,8 +140,49 @@
     </div>
  </template>
  <script>
- export default {
-    
- }
+import axios from 'axios';
+export default {
+    data() {
+        return {
+            create_danh_muc: {},
+            list_danh_muc: [],
+        }
+    },
+
+
+    mounted() {
+        this.loadDanhMuc();
+    },
+    methods: {
+        loadDanhMuc() {
+            axios
+                .get('http://127.0.0.1:8000/api/admin/danh-muc/data')
+                .then((res) => {
+                    this.list_danh_muc = res.data.data;
+                })
+        },
+        themMoi() {
+            axios
+                .post('http://127.0.0.1:8000/api/admin/danh-muc/create', this.create_danh_muc)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.$toast.success(res.data.message);
+                        this.loadDanhMuc();
+                    };
+                    this.create_danh_muc = {}
+                })
+        },
+        changeStatus(value) {
+            axios
+                .post('http://127.0.0.1:8000/api/admin/danh-muc/change-status', value)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.$toast.success(res.data.message);
+                        this.loadDanhMuc();
+                    }
+                })
+        }
+    }
+}
  </script>
  <style></style>
