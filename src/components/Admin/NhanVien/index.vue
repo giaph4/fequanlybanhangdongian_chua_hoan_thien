@@ -23,24 +23,30 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th class="align-middle text-center">1</th>
-                                <td class="align-middle">Nguyễn Quốc Long</td>
-                                <td class="align-middle">quoclongdng@gmail.com</td>
-                                <td class="align-middle">0123456789</td>
-                                <td class="align-middle text-center">32 Xuân Diệu</td>
-                                <td class="align-middle">Admin</td>
-                                <td class="align-middle text-center">
-                                    <button class="btn btn-success w-100">Hoạt
-                                        Động</button>
-                                </td>
-                                <td class="align-middle text-center">
-                                    <button class="btn btn-primary me-2" data-bs-toggle="modal"
-                                        data-bs-target="#capnhatDM">Cập nhật</button>
-                                    <button class="btn btn-danger" data-bs-toggle="modal"
-                                        data-bs-target="#delModal">Xóa</button>
-                                </td>
-                            </tr>
+                            <template v-for="(v,k) in list_nhan_vien" :key="k" >
+                                <tr>
+                                    <th class="align-middle text-center">{{  k + 1 }}</th>
+                                    <td class="align-middle">{{  v.ho_va_ten }}</td>
+                                    <td class="align-middle">q{{ v.email}}</td>
+                                    <td class="align-middle">{{ v.so_dien_thoai}}</td>
+                                    <td class="align-middle text-center">{{ v.dia_chi}}</td>
+                                    <td class="align-middle text-center">{{ v.id_quyen}}</td>
+                                    <td class="align-middle text-center">
+                                        <template v-if="v.tinh_trang == 1">
+                                            <button v-on:click="changeStatus(v)" class="btn btn-success w-100">Hoạt Động</button>
+                                        </template>
+                                        <template v-else>
+                                            <button v-on:click="changeStatus(v)" class="btn btn-warning w-100">Tắt</button>
+                                        </template>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <button class="btn btn-primary me-2"
+                                            data-bs-toggle="modal" data-bs-target="#capnhatDM" v-on:click="Object.assign(edit_nhan_vien,v)" >Cập nhật</button>
+                                        <button class="btn btn-danger" data-bs-toggle="modal" v-on:click="Object.assign(delete_nhan_vien,v)"
+                                            data-bs-target="#delModal">Xóa</button>
+                                    </td>
+                                </tr>
+                            </template>
                         </tbody>
                     </table>
                 </div>
@@ -104,14 +110,14 @@
                     </div>
                     <div class="modal-body">
                         <div class="alert alert-danger" role="alert">
-                            Bạn có chắc muốn xóa Nhân Viên <b class="text-danger">Nguyễn Quốc Long</b>
+                            Bạn có chắc muốn xóa Nhân Viên <b class="text-danger">{{ delete_nhan_vien.ho_va_ten }}</b>
                             này
                             không?
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Xác
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"  v-on:click="xoaNhanVien()" >Xác
                             nhận</button>
                     </div>
                 </div>
@@ -126,39 +132,39 @@
                     </div>
                     <div class="modal-body">
                         <div class="mb-2">
-                            <label>Họ Và Tên</label>
-                            <input type="text" class="form-control mt-2">
+                            <label class="form-lable">Họ Và Tên</label>
+                            <input v-model="edit_nhan_vien.ho_va_ten" type="text" class="form-control">
                         </div>
                         <div class="mb-2">
-                            <label>Email</label>
-                            <input type="email" class="form-control mt-2">
+                            <label class="form-lable">Email</label>
+                            <input v-model="edit_nhan_vien.email" type="email" class="form-control">
                         </div>
                         <div class="mb-2">
-                            <label>Số Điện Thoại</label>
-                            <input type="tel" class="form-control mt-2">
+                            <label class="form-lable">Số Điện Thoại</label>
+                            <input v-model="edit_nhan_vien.so_dien_thoai" type="text" class="form-control">
                         </div>
                         <div class="mb-2">
-                            <label>Địa Chỉ</label>
-                            <input type="text" class="form-control mt-2">
+                            <label class="form-lable">Địa Chỉ</label>
+                            <input v-model="edit_nhan_vien.dia_chi" type="text" class="form-control">
                         </div>
                         <div class="mb-2">
                             <label>Quyền</label>
-                            <select class="form-control mt-2">
+                            <select v-model="edit_nhan_vien.id_quyen" class="form-control mt-2">
                                 <option value="0">Admin</option>
                                 <option value="1">Nhân Viên</option>
                             </select>
                         </div>
                         <div class="mb-2">
-                            <label>Tình trạng</label>
-                            <select class="form-control mt-2">
+                            <label class="form-lable">Tình Trạng</label>
+                            <select v-model="edit_nhan_vien.tinh_trang" class="form-control">
+                                <option value="0">Tạm Dừng</option>
                                 <option value="1">Hoạt Động</option>
-                                <option value="0">Dừng Hoạt Động</option>
                             </select>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cập
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" v-on:click="capNhatNhanVien()">Cập
                             nhật</button>
                     </div>
                 </div>
@@ -172,15 +178,63 @@ export default {
     data() {
         return {
             create_nhan_vien: { 'ho_va_ten': '', 'email': '', 'so_dien_thoai': '', 'password': '', 'dia_chi': '', 'tinh_trang': '', 'id_quyen': 0 },
+            edit_nhan_vien: {},
+            delete_nhan_vien: {},
+            list_nhan_vien: [],
+
         }
+
+    },
+    mounted() {
+        this.loadNhanVien();
     },
     methods: {
+        loadNhanVien() {
+            axios
+                .get('http://127.0.0.1:8000/api/admin/nhan-vien/data')
+                .then((res) => {
+                    this.list_nhan_vien = res.data.data;
+                })
+        },
         createNhanVien() {
             axios
                 .post('http://127.0.0.1:8000/api/admin/nhan-vien/create', this.create_nhan_vien)
                 .then((res) => {
                     if (res.data.status) {
                         this.$toast.success(res.data.message);
+                        this.loadNhanVien();
+                    }
+                })
+        },
+        capNhatNhanVien() {
+            axios
+                .post('http://127.0.0.1:8000/api/admin/nhan-vien/update', this.edit_nhan_vien)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.$toast.success(res.data.message);
+                        this.loadNhanVien();
+                    };
+                })
+
+        },
+        xoaNhanVien() {
+            axios
+                .post('http://127.0.0.1:8000/api/admin/nhan-vien/delete', this.delete_nhan_vien)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.$toast.success(res.data.message);
+                        this.loadNhanVien();
+                    };
+                })
+
+        },
+        changeStatus(value) {
+            axios
+                .post('http://127.0.0.1:8000/api/admin/nhan-vien/change-status', value)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.$toast.success(res.data.message);
+                        this.loadNhanVien();
                     }
                 })
         }

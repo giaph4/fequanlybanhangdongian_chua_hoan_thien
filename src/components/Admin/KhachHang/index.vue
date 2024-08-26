@@ -19,15 +19,19 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <template v-for="(v,k) in list_khach_hang" :key="k" >
                                 <tr class="align-middle">
-                                    <th class="text-center">1</th>
-                                    <td>Nguyễn Quốc Long</td>
-                                    <td>quoclongdng@gmail.com</td>
-                                    <td class="text-center">0123456789</td>
-                                    <td class="text-center">
-                                        <button class="btn btn-success me-1" >
-                                            Hoạt Động
-                                        </button>
+                                    <th class="text-center">{{ k + 1 }}</th>
+                                    <td>{{ v.ho_va_ten }}</td>
+                                    <td>{{ v.email }}</td>
+                                    <td class="text-center">{{ v.so_dien_thoai }}</td>
+                                    <td class="align-middle text-center">
+                                        <template v-if="v.is_block == 1">
+                                            <button v-on:click="changeStatus(v)" class="btn btn-success">Hiển thị</button>
+                                        </template>
+                                        <template v-else>
+                                            <button v-on:click="changeStatus(v)" class="btn btn-warning">Block</button>
+                                        </template>
                                     </td>
                                     <td class="text-center">
                                         <button class="btn btn-primary me-1">
@@ -37,12 +41,13 @@
                                     <td class="text-center">
                                         <button class="btn btn-primary me-1"
                                             data-bs-toggle="modal"
-                                            data-bs-target="#capNhatKhachhangModal">Cập Nhật</button>
+                                            data-bs-target="#capNhatKhachhangModal" v-on:click="Object.assign(edit_khach_hang,v)" >Cập Nhật</button>
                                         <button class="btn btn-danger"
                                             data-bs-toggle="modal"
-                                            data-bs-target="#xoaKhachhangModal">Xóa</button>
+                                            data-bs-target="#xoaKhachhangModal" v-on:click="Object.assign(delete_khach_hang,v)" >Xóa</button>
                                     </td>
                                 </tr>
+                            </template>
                         </tbody>
                     </table>
                 </div>
@@ -61,21 +66,21 @@
                 <div class="modal-body">
                     <div class="col-md-12 mb-2">
                         <label class="form-label">Họ và Tên</label>
-                        <input type="text" class="form-control">
+                        <input v-model="edit_khach_hang.ho_va_ten" type="text" class="form-control">
                     </div>
                     <div class="col-md-12 mb-2">
                         <label class="form-label">Email</label>
-                        <input type="email" class="form-control">
+                        <input v-model="edit_khach_hang.email" type="email" class="form-control">
                     </div>
                     <div class="col-md-12 mb-2">
                         <label class="form-label">Số Điện Thoại</label>
-                        <input type="text" class="form-control">
+                        <input v-model="edit_khach_hang.so_dien_thoai" type="text" class="form-control">
                     </div>
 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" v-on:click="capNhatKhachHang()"
                         >Xác Nhận</button>
                 </div>
             </div>
@@ -96,7 +101,7 @@
                             </div>
                             <div class="ms-3">
                                 <h6 class="mb-0 text-white">Cảnh Báo!</h6>
-                                <div class="text-white">Bạn Có chắc chắn xóa tài khoản <b>XXX</b> này không!</div>
+                                <div class="text-white">Bạn Có chắc chắn xóa tài khoản <b>{{ delete_khach_hang.ho_va_ten }}</b> này không!</div>
                             </div>
                         </div>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -104,15 +109,80 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" >Xóa</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" v-on:click="xoaKhachHang()" >Xóa</button>
                 </div>
             </div>
         </div>
     </div>
 </template>
 <script>
+import axios from 'axios';
+
 export default {
-    
+    data() {
+        return {
+            create_khach_hang: {},
+            edit_khach_hang: {},
+            delete_khach_hang: {},
+            list_khach_hang: [],
+        }
+    },
+
+    mounted() {
+        this.loadKhachHang();
+    },
+    methods: {
+        loadKhachHang() {
+            axios
+                .get('http://127.0.0.1:8000/api/admin/khach-hang/data')
+                .then((res) => {
+                    this.list_khach_hang = res.data.data;
+                })
+        },
+        themMoi() {
+            axios
+                .post('http://127.0.0.1:8000/api/admin/khach-hang/create', this.create_khach_hang)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.$toast.success(res.data.message);
+                        this.loadKhachHang();
+                    };
+                    this.create_khach_hang = {}
+                })
+        },
+        capNhatKhachHang() {
+            axios
+                .post('http://127.0.0.1:8000/api/admin/khach-hang/update', this.edit_khach_hang)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.$toast.success(res.data.message);
+                        this.loadKhachHang();
+                    };
+                })
+
+        },
+        xoaKhachHang() {
+            axios
+                .post('http://127.0.0.1:8000/api/admin/khach-hang/delete', this.delete_khach_hang)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.$toast.success(res.data.message);
+                        this.loadKhachHang();
+                    };
+                })
+
+        },
+        changeStatus(value) {
+            axios
+                .post('http://127.0.0.1:8000/api/admin/khach-hang/change-status', value)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.$toast.success(res.data.message);
+                        this.loadKhachHang();
+                    }
+                })
+        }
+    }
 }
 </script>
 <style></style>

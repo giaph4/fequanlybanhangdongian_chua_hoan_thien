@@ -69,8 +69,8 @@
                             </td>
                             <td class="align-middle text-center">
                                <button class="btn btn-primary me-2"
-                                  data-bs-toggle="modal" data-bs-target="#capnhatDM">Cập nhật</button>
-                               <button class="btn btn-danger" data-bs-toggle="modal"
+                                  data-bs-toggle="modal" data-bs-target="#capnhatDM" v-on:click="Object.assign(edit_danh_muc,value)" >Cập nhật</button>
+                               <button class="btn btn-danger" data-bs-toggle="modal" v-on:click="Object.assign(delete_danh_muc,value)"
                                   data-bs-target="#delModal">Xóa</button>
                             </td>
                          </tr>
@@ -90,20 +90,21 @@
              <div class="modal-body">
                 <div class="mb-2">
                    <label>Tên Danh Mục</label>
-                   <input type="text"
-                      class="form-control mt-2">
+                   <input v-model="edit_danh_muc.ten_danh_muc"
+                      type="text" class="form-control mt-2">
                 </div>
                 <div class="mb-2">
                    <label>Slug Danh Mục</label>
-                   <input type="text" class="form-control mt-2">
+                   <input v-model="edit_danh_muc.slug_danh_muc" type="text"
+                      class="form-control mt-2">
                 </div>
                 <div class="mb-2">
                    <label>Icon Danh Mục</label>
-                   <input type="text" class="form-control mt-2">
+                   <input v-model="edit_danh_muc.icon" type="text" class="form-control mt-2">
                 </div>
                 <div class="mb-2">
                    <label>Tình trạng</label>
-                   <select class="form-control mt-2">
+                   <select v-model="edit_danh_muc.tinh_trang" class="form-control mt-2">
                       <option value="0">Tạm Tắt</option>
                       <option value="1">Hiển Thị</option>
                    </select>
@@ -111,7 +112,7 @@
              </div>
              <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cập
+                <button v-on:click="capNhatDanhMuc()" type="button" class="btn btn-primary" data-bs-dismiss="modal">Cập
                    nhật</button>
              </div>
           </div>
@@ -126,12 +127,12 @@
                 </div>
                 <div class="modal-body">
                    <div class="alert alert-danger" role="alert">
-                      Bạn có chắc muốn xóa <b class="text-danger">XXX</b> này không?
+                      Bạn có chắc muốn xóa <b class="text-danger">{{ delete_danh_muc.ten_danh_muc }}</b> này không?
                    </div>
                 </div>
                 <div class="modal-footer">
                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                   <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Xác
+                   <button type="button" class="btn btn-primary" data-bs-dismiss="modal" v-on:click="xoaDanhMuc()" >Xác
                       nhận</button>
                 </div>
              </div>
@@ -145,10 +146,11 @@ export default {
     data() {
         return {
             create_danh_muc: {},
+            edit_danh_muc: {},
+            delete_danh_muc: {},
             list_danh_muc: [],
         }
     },
-
 
     mounted() {
         this.loadDanhMuc();
@@ -171,6 +173,28 @@ export default {
                     };
                     this.create_danh_muc = {}
                 })
+        },
+        capNhatDanhMuc() {
+            axios
+                .post('http://127.0.0.1:8000/api/admin/danh-muc/update', this.edit_danh_muc)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.$toast.success(res.data.message);
+                        this.loadDanhMuc();
+                    };
+                })
+
+        },
+        xoaDanhMuc() {
+            axios
+                .post('http://127.0.0.1:8000/api/admin/danh-muc/delete', this.delete_danh_muc)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.$toast.success(res.data.message);
+                        this.loadDanhMuc();
+                    };
+                })
+
         },
         changeStatus(value) {
             axios
