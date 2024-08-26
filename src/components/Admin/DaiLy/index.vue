@@ -23,29 +23,31 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th class="align-middle text-center">1</th>
-                                <td class="align-middle">Nguyễn Quốc Long</td>
-                                <td class="align-middle">quoclongdng@gmail.com</td>
-                                <td class="align-middle">0123456789</td>
-                                <td class="align-middle text-center">01/01/1998</td>
-                                <td class="align-middle">DZFullStack</td>
-                                <td class="align-middle">0123456789</td>
-                                <td class="align-middle">32 Xuân Diệu</td>
-                                <td class="align-middle text-center">
-                                    <button class="btn btn-success w-100">Đã Kích
-                                        Hoạt</button>
-                                </td>
-                                <td class="align-middle text-center">
-                                    <button class="btn btn-success w-100">Mở</button>
-                                </td>
-                                <td class="align-middle text-center">
-                                    <button class="btn btn-primary me-2" data-bs-toggle="modal"
-                                        data-bs-target="#capnhatDM">Cập nhật</button>
-                                    <button class="btn btn-danger" data-bs-toggle="modal"
-                                        data-bs-target="#delModal">Xóa</button>
-                                </td>
-                            </tr>
+                            <template  v-for="(v,k) in list_dai_ly" :key="k">
+                                <tr>
+                                    <th class="align-middle text-center">{{ k + 1 }}</th>
+                                    <td class="align-middle">{{ v.ho_va_ten }}</td>
+                                    <td class="align-middle">{{ v.email }}</td>
+                                    <td class="align-middle">{{ v.so_dien_thoai }}</td>
+                                    <td class="align-middle text-center">{{ v.ngay_sinh }}</td>
+                                    <td class="align-middle">{{ v.ten_doanh_nghiep }}</td>
+                                    <td class="align-middle">{{ v.ma_so_thue }}</td>
+                                    <td class="align-middle">{{ v.dia_chi_kinh_doanh }}</td>
+                                    <td class="align-middle text-center">
+                                        <button class="btn btn-success w-100">Đã Kích
+                                            Hoạt</button>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <button class="btn btn-success w-100">Mở</button>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <button class="btn btn-primary me-2" data-bs-toggle="modal" v-on:click="Object.assign(edit_dai_ly,v)"
+                                            data-bs-target="#capnhatDM">Cập nhật</button>
+                                        <button class="btn btn-danger" data-bs-toggle="modal" v-on:click="Object.assign(delete_dai_ly,v)"
+                                            data-bs-target="#delModal">Xóa</button>
+                                    </td>
+                                </tr>
+                            </template>
                         </tbody>
                     </table>
                 </div>
@@ -61,13 +63,13 @@
                     </div>
                     <div class="modal-body">
                         <div class="alert alert-danger" role="alert">
-                            Bạn có chắc muốn xóa đại lý <b class="text-danger">AAA</b> này
+                            Bạn có chắc muốn xóa đại lý <b class="text-danger">{{ delete_dai_ly.ten_doanh_nghiep }}</b> này
                             không?
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Xóa</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" v-on:click="xoaDaiLy()" >Xóa</button>
                     </div>
                 </div>
             </div>
@@ -82,36 +84,36 @@
                     <div class="modal-body">
                         <div class="mb-2">
                             <label>Họ Và Tên</label>
-                            <input type="text" class="form-control mt-2">
+                            <input v-model="edit_dai_ly.ho_va_ten" type="text" class="form-control mt-2">
                         </div>
                         <div class="mb-2">
                             <label>Email</label>
-                            <input type="email" class="form-control mt-2">
+                            <input v-model="edit_dai_ly.email" type="email" class="form-control mt-2">
                         </div>
                         <div class="mb-2">
                             <label>Số Điện Thoại</label>
-                            <input type="tel" class="form-control mt-2">
+                            <input v-model="edit_dai_ly.so_dien_thoai" type="tel" class="form-control mt-2">
                         </div>
                         <div class="mb-2">
                             <label>Ngày Sinh</label>
-                            <input type="date" class="form-control mt-2">
+                            <input v-model="edit_dai_ly.ngay_sinh" type="date" class="form-control mt-2">
                         </div>
                         <div class="mb-2">
                             <label>Tên Doanh Nghiệp</label>
-                            <input type="text" class="form-control mt-2">
+                            <input v-model="edit_dai_ly.ten_doanh_nghiep" type="text" class="form-control mt-2">
                         </div>
                         <div class="mb-2">
                             <label>Mã Số Thuế</label>
-                            <input type="text" class="form-control mt-2">
+                            <input v-model="edit_dai_ly.ma_so_thue" type="text" class="form-control mt-2">
                         </div>
                         <div class="mb-2">
                             <label>Địa Chỉ Kinh Doanh</label>
-                            <input type="text" class="form-control mt-2">
+                            <input v-model="edit_dai_ly.dia_chi_kinh_doanh" type="text" class="form-control mt-2">
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cập
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" v-on:click="capNhatDaiLy()">Cập
                             nhật</button>
                     </div>
                 </div>
@@ -120,8 +122,73 @@
     </div>
 </template>
 <script>
-export default {
+import axios from 'axios';
 
+export default {
+    data() {
+        return {
+            create_dai_ly: {},
+            edit_dai_ly: {},
+            delete_dai_ly: {},
+            list_dai_ly: [],
+        }
+    },
+
+    mounted() {
+        this.loadDaiLy();
+    },
+    methods: {
+        loadDaiLy() {
+            axios
+                .get('http://127.0.0.1:8000/api/admin/dai-ly/data')
+                .then((res) => {
+                    this.list_dai_ly = res.data.data;
+                })
+        },
+        themMoi() {
+            axios
+                .post('http://127.0.0.1:8000/api/admin/dai-ly/create', this.create_dai_ly)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.$toast.success(res.data.message);
+                        this.loadDaiLy();
+                    };
+                    this.create_dai_ly = {}
+                })
+        },
+        capNhatDaiLy() {
+            axios
+                .post('http://127.0.0.1:8000/api/admin/dai-ly/update', this.edit_dai_ly)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.$toast.success(res.data.message);
+                        this.loadDaiLy();
+                    };
+                })
+
+        },
+        xoaDaiLy() {
+            axios
+                .post('http://127.0.0.1:8000/api/admin/dai-ly/delete', this.delete_dai_ly)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.$toast.success(res.data.message);
+                        this.loadDaiLy();
+                    };
+                })
+
+        },
+        changeStatus(value) {
+            axios
+                .post('http://127.0.0.1:8000/api/admin/dai-ly/change-status', value)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.$toast.success(res.data.message);
+                        this.loadDaiLy();
+                    }
+                })
+        }
+    }
 }
 </script>
 <style></style>
