@@ -4,14 +4,13 @@
             <div class="card">
                 <div class="row g-0">
                     <div class="col-md-4 border-end">
-                        <img src="https://img.lazcdn.com/g/p/e2dfff15ecfce0c7636d4ceee9c89961.jpg_400x400q80.jpg_.webp"
+                        <img v-bind:src="san_pham.hinh_anh"
                             style="    width: 100%; height: 500px; object-fit: contain; vertical-align: middle;"
                             class="img-fluid" alt="...">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                            <h4 class="card-title">12 TWS Earphonei Cute 6 Color Wireless Bluetooth
-                                Earphones Inpods Headset HiFi Sports Earbuds Colorful</h4>
+                            <h4 class="card-title">{{ san_pham.ten_san_pham }}</h4>
                             <div class="d-flex gap-3 py-3">
                                 <div class="cursor-pointer">
                                     <i class="bx bxs-star text-warning"></i>
@@ -26,18 +25,12 @@
                             </div>
                             <div class="mb-3">
                                 <p class="mb-0  fw-bold">
-                                    <span
-                                        class="me-2 text-decoration-line-through text-secondary">1,000,000đ&nbsp;₫</span>
-                                    <span>544,030đ&nbsp;₫</span>
+                                    <span class="me-2 text-decoration-line-through text-secondary">{{ san_pham.gia_ban
+                                        }}đ&nbsp;₫</span>
+                                    <span>{{ san_pham.gia_khuyen_mai }}đ&nbsp;₫</span>
                                 </p>
                             </div>
-                            <p class="card-text fs-6">The latest TWS dual-headphone stereo Bluetooth headset
-                                with Jerry 5.0 chip gives you efficient wireless connection.
-                                The latest generation of TWS Bluetooth headphones, smart charging case,
-                                magnetic shock and power charger, bring you a product with truly
-                                uninterrupted wireless power.
-                                Using V5.0 Bluetooth chip with 10m connection distance, stable performance,
-                                high transmission, low power consumption and strong compatibility.</p>
+                            <p class="card-text fs-6">{{ san_pham.mo_ta_ngan }}</p>
 
                             <hr>
                             <div class="row row-cols-auto row-cols-1 row-cols-md-3 align-items-center">
@@ -96,14 +89,7 @@
                     </ul>
                     <div class="tab-content pt-3">
                         <div class="tab-pane fade show active" id="primaryhome" role="tabpanel">
-                            <p>1. Tai nghe Bluetooth âm thanh nổi kép TWS Tai nghe mới nhất với chip 5.0
-                                Jerry mang đến cho bạn hiệu quả kết nối không dây.</p>
-                            <p> 2. thế hệ mới nhất của TWS Tai nghe bluetooth, trường hợp sạc thông minh,
-                                sốc từ và Bộ sạc điện, mang lại cho bạn một sản phẩm với sức mạnh không dây
-                                thực sự không bị gián đoạn.</p>
-                            <p> 3. Sử dụng chip bluetooth v5.0 với khoảng cách kết nối 10m, hiệu suất ổn
-                                định, truyền tải cao, tiêu thụ điện năng thấp và khả năng tương thích mạnh.
-                            </p>
+                            {{ san_pham.mo_ta_chi_tiet }}
                         </div>
                         <div class="tab-pane fade" id="primarycontact" role="tabpanel">
                             <div class="row">
@@ -173,8 +159,35 @@
     </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
-
+    props: ['id_san_pham'],
+    data() {
+        return {
+            id_san_pham: this.$route.params.id_san_pham,
+            san_pham: {},
+        }
+    },
+    mounted() {
+        this.loadChiTiet();
+    },
+    methods: {
+        loadChiTiet() {
+            var payload = {
+                'id_san_pham': this.id_san_pham,
+            };
+            axios
+                .post("http://127.0.0.1:8000/api/trang-chu/san-pham/chi-tiet", payload)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.san_pham = res.data.data;
+                    } else {
+                        this.$toast.error(res.data.message);
+                    }
+                });
+        }
+    },
 }
+
 </script>
 <style></style>

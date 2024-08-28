@@ -8,32 +8,32 @@ const routes = [
     {
         path: "/admin/nhan-vien",
         component: () => import("../components/Admin/NhanVien/index.vue"),
-        beforeEnter: checkLoginNV
+        // beforeEnter: checkLoginNV
     },
     {
         path: "/admin/dai-ly",
         component: () => import("../components/Admin/DaiLy/index.vue"),
-        beforeEnter: checkLoginNV
+        // beforeEnter: checkLoginNV
     },
     {
         path: "/admin/khach-hang",
         component: () => import("../components/Admin/KhachHang/index.vue"),
-        beforeEnter: checkLoginNV
+        // beforeEnter: checkLoginNV
     },
     {
         path: "/admin/danh-muc",
         component: () => import("../components/Admin/DanhMuc/index.vue"),
-        beforeEnter: checkLoginNV
+        // beforeEnter: checkLoginNV
     },
     {
         path: "/admin/san-pham",
         component: () => import("../components/Admin/SanPham/index.vue"),
-        beforeEnter: checkLoginNV
+        // beforeEnter: checkLoginNV
     },
     {
         path: "/admin/ma-giam-gia",
         component: () => import("../components/Admin/MaGiamGia/index.vue"),
-        beforeEnter: checkLoginNV
+        // beforeEnter: checkLoginNV
     },
     {
         path: "/admin/phan-quyen",
@@ -161,9 +161,10 @@ const routes = [
         meta: { layout: "client" },
     },
     {
-        path: "/chi-tiet-san-pham",
+        path: "/chi-tiet-san-pham/:id_san_pham",
         component: () => import("../components/TrangChu/ChiTietSanPham/index.vue"),
         meta: { layout: "client" },
+        props: true
     },
 ];
 

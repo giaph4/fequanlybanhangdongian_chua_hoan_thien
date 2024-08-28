@@ -6,6 +6,16 @@
                     <h4 class="text-center"><b>DANH SÁCH SẢN PHẨM</b></h4>
                 </div>
                 <div class="card-body">
+                    <div class="" style="margin-top: -15px;">
+                        <nav class="navbar bg-body-tertiary">
+                            <div class="container-fluid">
+                                <input v-on:keyup.enter="TimKiemBE()" v-model="search.noi_dung" style="width: 1160px;"
+                                    class="form-control me-2" type="text" placeholder="Search">
+                                <button v-on:click="TimKiemBE()" class="btn btn-outline-success"
+                                    type="button">Search</button>
+                            </div>
+                        </nav>
+                    </div>
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -32,23 +42,23 @@
                                     <td class="text-nowrap text-center">
                                         <p>
                                             <button v-if="v.is_flash_sale == 1" v-on:click="doiTrangThai(v.id, 1)"
-                                                class="btn btn-primary w-50">Flash Sale</button>
+                                                class="btn btn-primary w-100">Flash Sale</button>
                                             <button v-else v-on:click="doiTrangThai(v.id, 1)"
-                                                class="btn btn-warning w-50">Flash
+                                                class="btn btn-warning w-100">Flash
                                                 Sale</button>
                                         </p>
                                         <p>
                                             <button v-if="v.is_noi_bat == 1" v-on:click="doiTrangThai(v.id, 2)"
-                                                class="btn btn-primary w-50">Nổi Bật</button>
+                                                class="btn btn-primary w-100">Nổi Bật</button>
                                             <button v-else v-on:click="doiTrangThai(v.id, 2)"
-                                                class="btn btn-warning w-50">Nổi
+                                                class="btn btn-warning w-100">Nổi
                                                 Bật</button>
                                         </p>
                                         <p>
                                             <button v-if="v.is_hom_nay == 1" v-on:click="doiTrangThai(v.id, 3)"
-                                                class="btn btn-primary w-50">Hôm Nay</button>
+                                                class="btn btn-primary w-100">Hôm Nay</button>
                                             <button v-else v-on:click="doiTrangThai(v.id, 3)"
-                                                class="btn btn-warning w-50">Hôm
+                                                class="btn btn-warning w-100">Hôm
                                                 Nay</button>
                                         </p>
                                     </td>
@@ -159,6 +169,7 @@ export default {
     data() {
         return {
             list_san_pham: [],
+            search: {},
         }
     },
     mounted() {
@@ -166,6 +177,18 @@ export default {
     },
 
     methods: {
+        TimKiemBE() {
+            axios
+                .post('http://127.0.0.1:8000/api/admin/san-pham/tim-kiem', this.search)
+                .then((res) => {
+                    this.list_san_pham = res.data.data
+                })
+                .catch((res) => {
+                    $.each(res.response.data.errors, function (k, v) {
+                        toastr.error(v[0], 'Error');
+                    });
+                });
+        },
         loadData() {
             axios
                 .get('http://127.0.0.1:8000/api/admin/san-pham/data')
