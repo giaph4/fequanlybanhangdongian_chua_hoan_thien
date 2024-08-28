@@ -4,8 +4,19 @@
             <div class="card">
                 <div class="card-header">
                     <h4>Danh Sách Khách Hàng</h4>
+
                 </div>
                 <div class="card-body">
+                    <div class="" style="margin-top: -15px;">
+                        <nav class="navbar bg-body-tertiary">
+                            <div class="container-fluid">
+                                <input v-on:keyup.enter="TimKiemBE()" v-model="search.noi_dung" style="width: 1180px;"
+                                    class="form-control me-2" type="text" placeholder="Search">
+                                <button v-on:click="TimKiemBE()" class="btn btn-outline-success"
+                                    type="button">Search</button>
+                            </div>
+                        </nav>
+                    </div>
                     <table class="table table-bordered mb-0">
                         <thead>
                             <tr class="text-center">
@@ -19,7 +30,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <template v-for="(v,k) in list_khach_hang" :key="k" >
+                            <template v-for="(v, k) in list_khach_hang" :key="k">
                                 <tr class="align-middle">
                                     <th class="text-center">{{ k + 1 }}</th>
                                     <td>{{ v.ho_va_ten }}</td>
@@ -27,7 +38,8 @@
                                     <td class="text-center">{{ v.so_dien_thoai }}</td>
                                     <td class="align-middle text-center">
                                         <template v-if="v.is_block == 1">
-                                            <button v-on:click="changeStatus(v)" class="btn btn-success">Hiển thị</button>
+                                            <button v-on:click="changeStatus(v)" class="btn btn-success">Hiển
+                                                thị</button>
                                         </template>
                                         <template v-else>
                                             <button v-on:click="changeStatus(v)" class="btn btn-warning">Block</button>
@@ -39,12 +51,12 @@
                                         </button>
                                     </td>
                                     <td class="text-center">
-                                        <button class="btn btn-primary me-1"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#capNhatKhachhangModal" v-on:click="Object.assign(edit_khach_hang,v)" >Cập Nhật</button>
-                                        <button class="btn btn-danger"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#xoaKhachhangModal" v-on:click="Object.assign(delete_khach_hang,v)" >Xóa</button>
+                                        <button class="btn btn-primary me-1" data-bs-toggle="modal"
+                                            data-bs-target="#capNhatKhachhangModal"
+                                            v-on:click="Object.assign(edit_khach_hang, v)">Cập Nhật</button>
+                                        <button class="btn btn-danger" data-bs-toggle="modal"
+                                            data-bs-target="#xoaKhachhangModal"
+                                            v-on:click="Object.assign(delete_khach_hang, v)">Xóa</button>
                                     </td>
                                 </tr>
                             </template>
@@ -80,8 +92,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" v-on:click="capNhatKhachHang()"
-                        >Xác Nhận</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        v-on:click="capNhatKhachHang()">Xác Nhận</button>
                 </div>
             </div>
         </div>
@@ -101,7 +113,8 @@
                             </div>
                             <div class="ms-3">
                                 <h6 class="mb-0 text-white">Cảnh Báo!</h6>
-                                <div class="text-white">Bạn Có chắc chắn xóa tài khoản <b>{{ delete_khach_hang.ho_va_ten }}</b> này không!</div>
+                                <div class="text-white">Bạn Có chắc chắn xóa tài khoản <b>{{ delete_khach_hang.ho_va_ten
+                                        }}</b> này không!</div>
                             </div>
                         </div>
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -109,7 +122,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal" v-on:click="xoaKhachHang()" >Xóa</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                        v-on:click="xoaKhachHang()">Xóa</button>
                 </div>
             </div>
         </div>
@@ -125,6 +139,7 @@ export default {
             edit_khach_hang: {},
             delete_khach_hang: {},
             list_khach_hang: [],
+            search: {}
         }
     },
 
@@ -132,6 +147,13 @@ export default {
         this.loadKhachHang();
     },
     methods: {
+        TimKiemBE() {
+            axios
+                .post('http://127.0.0.1:8000/api/admin/khach-hang/tim-kiem', this.search)
+                .then((res) => {
+                    this.list_nhan_vien = res.data.data
+                })
+        },
         loadKhachHang() {
             axios
                 .get('http://127.0.0.1:8000/api/admin/khach-hang/data')

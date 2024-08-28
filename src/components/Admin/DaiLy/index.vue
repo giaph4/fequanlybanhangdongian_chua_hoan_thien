@@ -4,8 +4,19 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h6><b>DANH SÁCH ĐẠI LÝ</b></h6>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#themmoiDL">Thêm Mới</button>
                 </div>
                 <div class="card-body table-responsive">
+                    <div class="" style="margin-top: -15px;">
+                        <nav class="navbar bg-body-tertiary">
+                            <div class="container-fluid">
+                                <input v-on:keyup.enter="TimKiemBE()" v-model="search.noi_dung" style="width: 1180px;"
+                                    class="form-control me-2" type="text" placeholder="Search">
+                                <button v-on:click="TimKiemBE()" class="btn btn-outline-success"
+                                    type="button">Search</button>
+                            </div>
+                        </nav>
+                    </div>
                     <table class="table table-bordered table-hover ">
                         <thead>
                             <tr>
@@ -23,7 +34,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <template  v-for="(v,k) in list_dai_ly" :key="k">
+                            <template v-for="(v, k) in list_dai_ly" :key="k">
                                 <tr>
                                     <th class="align-middle text-center">{{ k + 1 }}</th>
                                     <td class="align-middle">{{ v.ho_va_ten }}</td>
@@ -41,9 +52,11 @@
                                         <button class="btn btn-success w-100">Mở</button>
                                     </td>
                                     <td class="align-middle text-center">
-                                        <button class="btn btn-primary me-2" data-bs-toggle="modal" v-on:click="Object.assign(edit_dai_ly,v)"
-                                            data-bs-target="#capnhatDM">Cập nhật</button>
-                                        <button class="btn btn-danger" data-bs-toggle="modal" v-on:click="Object.assign(delete_dai_ly,v)"
+                                        <button class="btn btn-primary me-2" v-on:click="Object.assign(edit_dai_ly, v)"
+                                            data-bs-toggle="modal" data-bs-target="#capnhatDM">Cập
+                                            nhật</button>
+                                        <button class="btn btn-danger" data-bs-toggle="modal"
+                                            v-on:click="Object.assign(delete_dai_ly, v)"
                                             data-bs-target="#delModal">Xóa</button>
                                     </td>
                                 </tr>
@@ -54,6 +67,56 @@
             </div>
 
         </div>
+        <div class="modal fade" id="themmoiDL" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm Mới Đại Lý</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-2">
+                            <label>Họ Và Tên</label>
+                            <input v-model="create_dai_ly.ho_va_ten" type="text" class="form-control mt-2">
+                        </div>
+                        <div class="mb-2">
+                            <label>Email</label>
+                            <input v-model="create_dai_ly.email" type="email" class="form-control mt-2">
+                        </div>
+                        <div class="mb-2">
+                            <label>Số Điện Thoại</label>
+                            <input v-model="create_dai_ly.so_dien_thoai" type="tel" class="form-control mt-2">
+                        </div>
+                        <div class="mb-2">
+                            <label>Ngày Sinh</label>
+                            <input v-model="create_dai_ly.ngay_sinh" type="date" class="form-control mt-2">
+                        </div>
+                        <div class="mb-2">
+                            <label>Password</label>
+                            <input v-model="create_dai_ly.password" type="text" class="form-control mt-2">
+                        </div>
+                        <div class="mb-2">
+                            <label>Tên Doanh Nghiệp</label>
+                            <input v-model="create_dai_ly.ten_doanh_nghiep" type="text" class="form-control mt-2">
+                        </div>
+                        <div class="mb-2">
+                            <label>Mã Số Thuế</label>
+                            <input v-model="create_dai_ly.ma_so_thue" type="text" class="form-control mt-2">
+                        </div>
+                        <div class="mb-2">
+                            <label>Địa Chỉ Kinh Doanh</label>
+                            <input v-model="create_dai_ly.dia_chi_kinh_doanh" type="text" class="form-control mt-2">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                            v-on:click="themMoi()">Thêm
+                            Mới</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="modal fade" id="delModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -63,13 +126,16 @@
                     </div>
                     <div class="modal-body">
                         <div class="alert alert-danger" role="alert">
-                            Bạn có chắc muốn xóa đại lý <b class="text-danger">{{ delete_dai_ly.ten_doanh_nghiep }}</b> này
+                            Bạn có chắc muốn xóa đại lý <b class="text-danger">{{ delete_dai_ly.ten_doanh_nghiep
+                                }}</b>
+                            này
                             không?
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" v-on:click="xoaDaiLy()" >Xóa</button>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                            v-on:click="xoaDaiLy()">Xóa</button>
                     </div>
                 </div>
             </div>
@@ -113,7 +179,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" v-on:click="capNhatDaiLy()">Cập
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                            v-on:click="capNhatDaiLy()">Cập
                             nhật</button>
                     </div>
                 </div>
@@ -131,6 +198,7 @@ export default {
             edit_dai_ly: {},
             delete_dai_ly: {},
             list_dai_ly: [],
+            search: {},
         }
     },
 
@@ -138,6 +206,15 @@ export default {
         this.loadDaiLy();
     },
     methods: {
+        TimKiemBE() {
+            axios
+                .post('http://127.0.0.1:8000/api/admin/dai-ly/tim-kiem', this.search)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.list_dai_ly = res.data.data
+                    };
+                })
+        },
         loadDaiLy() {
             axios
                 .get('http://127.0.0.1:8000/api/admin/dai-ly/data')
