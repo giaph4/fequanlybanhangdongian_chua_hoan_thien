@@ -62,13 +62,11 @@
                                 <tr>
                                     <th class="align-middle">1</th>
                                     <td class="align-middle text-wrap">Iphone 16</td>
-                                    <td class="align-middle ">
-                                        <input type="number" class="form-control text-center"
-                                         style="width: 100px;">
+                                    <td class="align-middle text-center">
+                                        <input type="number" class="form-control text-center">
                                     </td>
                                     <td class="align-middle text-center">
-                                        <input type="number" class="form-control text-center"
-                                         style="width: 100px;">
+                                        <input type="number" class="form-control text-center">
                                     </td>
                                     <td class="align-middle text-center">1đ</td>
                                     <td class="align-middle">

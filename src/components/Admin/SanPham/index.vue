@@ -6,15 +6,13 @@
                     <h4 class="text-center"><b>DANH SÁCH SẢN PHẨM</b></h4>
                 </div>
                 <div class="card-body">
-                    <div class="" style="margin-top: -15px;">
-                        <nav class="navbar bg-body-tertiary">
-                            <div class="container-fluid">
-                                <input v-on:keyup.enter="TimKiemBE()" v-model="search.noi_dung" style="width: 1160px;"
-                                    class="form-control me-2" type="text" placeholder="Search">
-                                <button v-on:click="TimKiemBE()" class="btn btn-outline-success"
-                                    type="button">Search</button>
-                            </div>
-                        </nav>
+                    <div class="input-group mt-3 w-100">
+                        <input v-on:keyup.enter="TimKiemBE()" v-model="search.noi_dung" type="text" class="form-control search-control border border-1 border-secondary"
+                                placeholder="Search...">
+                        <span class="position-absolute top-50 search-show translate-middle-y" style="left: 15px;"><i
+                                class="bx bx-search"></i></span>
+                        <button v-on:click="TimKiemBE()" class="btn btn-outline-secondary" type="button" id="button-addon2">Tìm
+                                Kiếm</button>
                     </div>
                     <table class="table table-bordered">
                         <thead>

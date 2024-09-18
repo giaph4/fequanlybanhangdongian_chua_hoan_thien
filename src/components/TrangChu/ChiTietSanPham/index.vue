@@ -110,7 +110,7 @@
                                         <div class="card-body">
                                             <ul class="list-unstyled">
                                                 <li class="d-flex align-items-center border-bottom pb-2">
-                                                    <img src="assets/images/avatars/avatar-8.png"
+                                                    <img src="../../../assets/images/avatars/avatar-8.png"
                                                         class="rounded-circle p-1 border" width="90" height="90"
                                                         alt="...">
                                                     <div class="flex-grow-1 ms-3">
@@ -122,7 +122,7 @@
                                                     </div>
                                                 </li>
                                                 <li class="d-flex align-items-center my-4 border-bottom pb-2">
-                                                    <img src="assets/images/avatars/avatar-9.png"
+                                                    <img src="../../../assets/images/avatars/avatar-9.png"
                                                         class="rounded-circle p-1 border" width="90" height="90"
                                                         alt="...">
                                                     <div class="flex-grow-1 ms-3">
@@ -134,7 +134,7 @@
                                                     </div>
                                                 </li>
                                                 <li class="d-flex align-items-center">
-                                                    <img src="assets/images/avatars/avatar-10.png"
+                                                    <img src="../../../assets/images/avatars/avatar-10.png"
                                                         class="rounded-circle p-1 border" width="90" height="90"
                                                         alt="...">
                                                     <div class="flex-grow-1 ms-3">

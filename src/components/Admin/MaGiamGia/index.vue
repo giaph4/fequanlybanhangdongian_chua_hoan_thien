@@ -56,13 +56,13 @@
                <h6><b>DANH SÁCH MÃ GIẢM GIÁ</b></h6>
             </div>
             <div class="card-body table-responsive">
-               <div class="" style="margin-top: -15px;">
-                  <nav class="navbar bg-body-tertiary">
-                     <div class="container-fluid">
-                        <input style="width: 800px;" class="form-control me-2" type="text" placeholder="Search">
-                        <button class="btn btn-outline-success" type="button">Search</button>
-                     </div>
-                  </nav>
+               <div class="input-group mt-3 w-100">
+                  <input type="text" class="form-control search-control border border-1 border-secondary"
+                        placeholder="Search...">
+                  <span class="position-absolute top-50 search-show translate-middle-y" style="left: 15px;"><i
+                           class="bx bx-search"></i></span>
+                  <button class="btn btn-outline-secondary" type="button" id="button-addon2">Tìm
+                        Kiếm</button>
                </div>
                <table class="table table-bordered table-hover ">
                   <thead>
@@ -184,24 +184,7 @@
 </template>
 <script>
 export default {
-   data() {
-      return {
-         search: {},
-         list_ma_giam_gia: [],
-      }
-   },
-   mounted() {
-
-   },
-   methods: {
-      TimKiemBE() {
-         axios
-            .post('http://127.0.0.1:8000/api/admin/nhan-vien/tim-kiem', this.search)
-            .then((res) => {
-               this.list_ma_giam_gia = res.data.data
-            })
-      },
-   },
+   
 }
 </script>
 <style></style>

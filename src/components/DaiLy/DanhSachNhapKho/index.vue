@@ -32,7 +32,6 @@
                                 <th class="text-center">Đơn Giá</th>
                                 <th class="text-center">Thành Tiền</th>
                                 <th class="text-center">Ngày Nhập</th>
-                                <th class="text-center">Ghi Chú</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -43,10 +42,6 @@
                                 <td class="align-middle text-end">10000đ</td>
                                 <td class="align-middle text-end">10000đ</td>
                                 <td class="align-middle text-center">22-07-2024</td>
-                                <td class="align-middle text-center">
-                                    <i class="fa-solid fa-newspaper fa-2xl" data-bs-toggle="modal"
-                                        data-bs-target="#moTaChiTiet"></i>
-                                </td>
                             </tr>
                         </tbody>
                     </table>
