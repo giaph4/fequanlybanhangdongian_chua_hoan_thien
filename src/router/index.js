@@ -8,42 +8,42 @@ const routes = [
     {
         path: "/admin/nhan-vien",
         component: () => import("../components/Admin/NhanVien/index.vue"),
-        // beforeEnter: checkLoginNV
+        beforeEnter: checkLoginNV
     },
     {
         path: "/admin/dai-ly",
         component: () => import("../components/Admin/DaiLy/index.vue"),
-        // beforeEnter: checkLoginNV
+        beforeEnter: checkLoginNV
     },
     {
         path: "/admin/khach-hang",
         component: () => import("../components/Admin/KhachHang/index.vue"),
-        // beforeEnter: checkLoginNV
+        beforeEnter: checkLoginNV
     },
     {
         path: "/admin/danh-muc",
         component: () => import("../components/Admin/DanhMuc/index.vue"),
-        // beforeEnter: checkLoginNV
+        beforeEnter: checkLoginNV
     },
     {
         path: "/admin/san-pham",
         component: () => import("../components/Admin/SanPham/index.vue"),
-        // beforeEnter: checkLoginNV
+        beforeEnter: checkLoginNV
     },
     {
         path: "/admin/ma-giam-gia",
         component: () => import("../components/Admin/MaGiamGia/index.vue"),
-        // beforeEnter: checkLoginNV
+        beforeEnter: checkLoginNV
     },
     {
         path: "/admin/phan-quyen",
         component: () => import("../components/Admin/PhanQuyen/index.vue"),
-        // beforeEnter: checkLoginNV
+        beforeEnter: checkLoginNV
     },
     {
         path: "/admin/profile",
         component: () => import("../components/Admin/Profile/index.vue"),
-        // beforeEnter: checkLoginNV
+        beforeEnter: checkLoginNV
     },
     {
         path: "/admin/dang-nhap",
@@ -98,6 +98,12 @@ const routes = [
     {
         path: "/dai-ly/don-hang",
         component: () => import("../components/DaiLy/DonHang/index.vue"),
+        meta: { layout: "daily" },
+        // beforeEnter: checkLoginDL
+    },
+    {
+        path: "/dai-ly/thong-ke",
+        component: () => import("../components/DaiLy/ThongKe/index.vue"),
         meta: { layout: "daily" },
         // beforeEnter: checkLoginDL
     },

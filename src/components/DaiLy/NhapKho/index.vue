@@ -11,12 +11,13 @@
                             <tr>
                                 <th colspan="3">
                                     <div class="input-group mt-3 w-100">
-                                        <input type="text"
+                                        <input v-on:keyup.enter="TimKiemBE()" v-model="search.noi_dung" type="text"
                                             class="form-control search-control border border-1 border-secondary"
-                                             placeholder="Search...">
+                                            placeholder="Search...">
                                         <span class="position-absolute top-50 search-show translate-middle-y"
                                             style="left: 15px;"><i class="bx bx-search"></i></span>
-                                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Tìm
+                                        <button v-on:click="TimKiemBE()" class="btn btn-outline-secondary" type="button"
+                                            id="button-addon2">Tìm
                                             Kiếm</button>
                                     </div>
                                 </th>
@@ -28,14 +29,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
+                            <template v-for="(v, k) in list_san_pham" :key="k">
                                 <tr>
-                                    <th class="align-middle text-center">1</th>
-                                    <td class="align-middle text-wrap">Iphone 16</td>
+                                    <th class="align-middle text-center">{{ k + 1 }}</th>
+                                    <td class="align-middle text-wrap">{{ v.ten_san_pham }}</td>
                                     <td class="align-middle text-center">
                                         <button class="btn btn-primary">Add</button>
                                     </td>
                                 </tr>
+                            </template>
                         </tbody>
                     </table>
                 </div>
@@ -59,20 +61,22 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <template v-for="(v, k) in list_nhap_kho" :key="k">
                                 <tr>
-                                    <th class="align-middle">1</th>
-                                    <td class="align-middle text-wrap">Iphone 16</td>
+                                    <th class="align-middle">{{ k + 1 }}</th>
+                                    <td class="align-middle text-wrap">{{ v.ten_san_pham }}</td>
                                     <td class="align-middle text-center">
-                                        <input type="number" class="form-control text-center">
+                                        <input v-model="v.so_luong" type="number" class="form-control text-center">
                                     </td>
                                     <td class="align-middle text-center">
-                                        <input type="number" class="form-control text-center">
+                                        <input v-model="v.don_gia" type="number" class="form-control text-center">
                                     </td>
-                                    <td class="align-middle text-center">1đ</td>
+                                    <td class="align-middle text-center">{{ v.thanh_tien }}</td>
                                     <td class="align-middle">
                                         <button class="btn btn-danger">Xóa</button>
                                     </td>
                                 </tr>
+                            </template>
                         </tbody>
                         <tfoot>
                             <tr>
@@ -89,8 +93,51 @@
     </div>
 </template>
 <script>
-export default {
+import axios from 'axios';
 
+
+export default {
+    data() {
+        return {
+            list_nhap_kho: [],
+            list_san_pham: [],
+            search: {},
+        }
+    },
+
+
+    mounted() {
+        this.loadNhapKho();
+        this.loadSanPham();
+    },
+    methods: {
+        TimKiemBE() {
+            axios
+                .post('http://127.0.0.1:8000/api/dai-ly/san-pham/tim-kiem', this.search)
+                .then((res) => {
+                    this.list_san_pham = res.data.data
+                })
+                .catch((res) => {
+                    $.each(res.response.data.errors, function (k, v) {
+                        toastr.error(v[0], 'Error');
+                    });
+                });
+        },
+        loadNhapKho() {
+            axios
+                .get('http://127.0.0.1:8000/api/dai-ly/nhap-kho/data')
+                .then((res) => {
+                    this.list_nhap_kho = res.data.data;
+                })
+        },
+        loadSanPham() {
+            axios
+                .get('http://127.0.0.1:8000/api/dai-ly/san-pham/data')
+                .then((res) => {
+                    this.list_san_pham = res.data.data;
+                })
+        },
+    }
 }
 </script>
 <style></style>

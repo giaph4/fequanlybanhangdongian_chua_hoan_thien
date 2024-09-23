@@ -35,14 +35,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th class="align-middle">1</th>
-                                <td class="align-middle text-wrap">Iphone 15 Promax</td>
-                                <td class="align-middle text-center">1</td>
-                                <td class="align-middle text-end">10000đ</td>
-                                <td class="align-middle text-end">10000đ</td>
-                                <td class="align-middle text-center">22-07-2024</td>
-                            </tr>
+                            <template v-for="(v, k) in list_nhap_kho" :key="k">
+                                <tr>
+                                    <th class="align-middle">{{ k + 1 }}</th>
+                                    <td class="align-middle text-wrap">{{ v.ten_san_pham }}</td>
+                                    <td class="align-middle text-center">{{ v.so_luong }}</td>
+                                    <td class="align-middle text-end">{{ v.don_gia }}đ</td>
+                                    <td class="align-middle text-end">{{ v.thanh_tien }}đ</td>
+                                    <td class="align-middle text-center">{{ v.created_at }}</td>
+                                </tr>
+                            </template>
                         </tbody>
                     </table>
                 </div>
@@ -51,8 +53,29 @@
     </div>
 </template>
 <script>
-export default {
+import axios from 'axios';
 
+
+export default {
+    data() {
+        return {
+            list_nhap_kho: [],
+        }
+    },
+
+
+    mounted() {
+        this.loadNhapKho();
+    },
+    methods: {
+        loadNhapKho() {
+            axios
+                .get('http://127.0.0.1:8000/api/dai-ly/nhap-kho/data-kho')
+                .then((res) => {
+                    this.list_nhap_kho = res.data.data;
+                })
+        },
+    }
 }
 </script>
 <style></style>

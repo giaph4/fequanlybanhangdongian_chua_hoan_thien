@@ -13,12 +13,13 @@
                         </div>
                         <div class="col-lg-12">
                             <div class="input-group mt-3 w-100">
-                                <input type="text" class="form-control search-control border border-3 border-secondary"
+                                <input v-on:keyup.enter="timKiem()" v-model="tim_kiem.noi_dung_tim" type="text"
+                                    class="form-control search-control border border-2 border-secondary"
                                     placeholder="Search...">
                                 <span class="position-absolute top-50 search-show translate-middle-y"
                                     style="left: 15px;"><i class="bx bx-search"></i></span>
-                                <button class="btn btn-outline-secondary" type="button" id="button-addon2">Tìm
-                                    Kiếm</button>
+                                <button v-on:click="timKiem()" class="btn btn-outline-secondary" type="button"
+                                    id="button-addon2">Tìm Kiếm</button>
                             </div>
                         </div>
                         <div class="modal fade" id="themMoiModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -26,21 +27,21 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm Mới Quyền
-                                        </h1>
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm Mới Quyền</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
                                         <div class="col-12 mb-2">
                                             <label class="form-label">Tên Quyền</label>
-                                            <input type="text" class="form-control">
+                                            <input v-model="create_quyen.ten_quyen" type="text" class="form-control">
                                         </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                             data-bs-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Tạo
+                                        <button v-on:click="themMoiPhanQuyen()" type="button" class="btn btn-primary"
+                                            data-bs-dismiss="modal">Tạo
                                             Mới</button>
                                     </div>
                                 </div>
@@ -60,17 +61,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="align-middle">
-                                    <th class="text-center">1</th>
-                                    <td>Admin</td>
+                                <tr v-for="(v, k) in list_phan_quyen" :key="k" class="align-middle">
+                                    <th class="text-center">{{ k + 1 }}</th>
+                                    <td>{{ v.ten_quyen }}</td>
                                     <td class="text-center">
-                                        <button class="btn btn-info text-white">Phân
+                                        <button v-on:click="quyen_dang_chon = v; loadData()"
+                                            class="btn btn-info text-white">Phân
                                             Quyền</button>
                                     </td>
                                     <td class="text-center">
-                                        <i class="fa-solid fa-square-pen fa-3x text-primary me-2" data-bs-toggle="modal"
-                                            data-bs-target="#updateModal"></i>
-                                        <i class="fa-solid fa-trash fa-3x text-danger" data-bs-toggle="modal"
+                                        <i v-on:click="Object.assign(update_quyen, v)"
+                                            class="fa-solid fa-square-pen fa-3x text-primary me-2"
+                                            data-bs-toggle="modal" data-bs-target="#updateModal"></i>
+                                        <i v-on:click="Object.assign(delete_quyen, v)"
+                                            class="fa-solid fa-trash fa-3x text-danger" data-bs-toggle="modal"
                                             data-bs-target="#xoaModal"></i>
                                     </td>
                                 </tr>
@@ -89,14 +93,14 @@
                                 <div class="modal-body">
                                     <div class="col-12 mb-2">
                                         <label class="form-label">Tên Quyền</label>
-                                        <input type="text" class="form-control">
+                                        <input v-model="update_quyen.ten_quyen" type="text" class="form-control">
                                     </div>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
                                         data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Xác
-                                        Nhận</button>
+                                    <button v-on:click="capNhatPhanQuyen()" type="button" class="btn btn-primary"
+                                        data-bs-dismiss="modal">Xác Nhận</button>
                                 </div>
                             </div>
                         </div>
@@ -120,7 +124,7 @@
                                             <div class="ms-3">
                                                 <h6 class="mb-0 text-dark">Warning</h6>
                                                 <div class="text-dark">
-                                                    <p>Bạn có muốn xóa quyền <b>Admin</b> này
+                                                    <p>Bạn có muốn xóa quyền <b>{{ delete_quyen.ten_quyen }}</b> này
                                                         không?
                                                     </p>
                                                     <p>
@@ -134,7 +138,8 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
                                         data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Xóa</button>
+                                    <button v-on:click="xoaPhanQuyen()" type="button" class="btn btn-danger"
+                                        data-bs-dismiss="modal">Xóa</button>
                                 </div>
                             </div>
                         </div>
@@ -160,9 +165,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="align-middle">
-                                        <th class="text-center">1</th>
-                                        <td>Tạo mới danh mục</td>
+                                    <tr v-for="(v, k) in list_chuc_nang" :key="k" class="align-middle">
+                                        <th class="text-center">{{ k + 1 }}</th>
+                                        <td class="text-wrap">{{ v.ten_chuc_nang }}</td>
                                         <td class="text-center">
                                             <button class="btn btn-primary">Cấp Quyền</button>
                                         </td>
@@ -191,13 +196,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="align-middle">
-                                        <td>Tạo mới danh mục</td>
-                                        <td>Admin</td>
-                                        <td class="text-center">
-                                            <button class="btn btn-danger">Xóa</button>
-                                        </td>
-                                    </tr>
+                                    <template v-for="(v, k) in list_chi_tiet" :key="k">
+                                        <tr class="align-middle">
+                                            <td class="text-wrap">{{ v.ten_chuc_nang }}</td>
+                                            <td>{{ v.ten_quyen }}</td>
+                                            <td class="text-center">
+                                                <button class="btn btn-danger">Xóa</button>
+                                            </td>
+                                        </tr>
+                                    </template>
                                 </tbody>
                             </table>
                         </div>
@@ -208,8 +215,103 @@
     </div>
 </template>
 <script>
+import axios from 'axios';
 export default {
-
+    data() {
+        return {
+            list_chuc_nang: [],
+            list_phan_quyen: [],
+            create_quyen: {},
+            delete_quyen: {},
+            update_quyen: {},
+            list_chi_tiet: [],
+            tim_kiem: {}
+        }
+    },
+    mounted() {
+        this.layDuLieuPhanQuyen();
+        this.layDuLieuChucNang();
+        this.loadData();
+    },
+    methods: {
+        timKiem() {
+         axios
+         .post("http://127.0.0.1:8000/api/admin/phan-quyen/tim-kiem", this.tim_kiem)
+                .then((res) => {
+                    if (res.data.status == false) {
+                        toaster.error(res.data.message)
+                    }
+                    this.list_phan_quyen = res.data.data;
+                });
+        },
+        loadData() {
+            axios
+                .get("http://127.0.0.1:8000/api/admin/chi-tiet-phan-quyen/danh-sach")
+                .then((res) => {
+                    if (res.data.status == false) {
+                        this.$toast.error(res.data.message)
+                    }
+                    this.list_chi_tiet = res.data.data;
+                });
+        },
+        layDuLieuChucNang() {
+            axios
+                .get('http://127.0.0.1:8000/api/admin/chuc-nang/data')
+                .then((res) => {
+                    if (res.data.status == false) {
+                        this.$toast.error(res.data.message)
+                    }
+                    this.list_chuc_nang = res.data.data;
+                });
+        },
+        layDuLieuPhanQuyen() {
+            axios
+                .get('http://127.0.0.1:8000/api/admin/phan-quyen/data')
+                .then((res) => {
+                    if (res.data.status == false) {
+                        this.$toast.error(res.data.message)
+                    }
+                    this.list_phan_quyen = res.data.data;
+                });
+        },
+        themMoiPhanQuyen() {
+            axios
+                .post('http://127.0.0.1:8000/api/admin/phan-quyen/create', this.create_quyen)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.$toast.success('Thông báo<br>' + res.data.message);
+                        this.layDuLieuPhanQuyen();
+                        this.create_quyen = {};
+                    } else {
+                        this.$toast.error(res.data.message)
+                    }
+                });
+        },
+        xoaPhanQuyen() {
+            axios
+                .post('http://127.0.0.1:8000/api/admin/phan-quyen/delete', this.delete_quyen)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.$toast.success('Thông báo<br>' + res.data.message);
+                        this.layDuLieuPhanQuyen();
+                    } else {
+                        this.$toast.error('Thông báo<br>' + res.data.message);
+                    }
+                })
+        },
+        capNhatPhanQuyen() {
+            axios
+                .post('http://127.0.0.1:8000/api/admin/phan-quyen/update', this.update_quyen)
+                .then((res) => {
+                    if (res.data.status) {
+                        this.$toast.success('Thông báo<br>' + res.data.message);
+                        this.layDuLieuPhanQuyen();
+                    } else {
+                        this.$toast.error('Thông báo<br>' + res.data.message);
+                    }
+                });
+        },
+    },
 }
 </script>
 <style></style>

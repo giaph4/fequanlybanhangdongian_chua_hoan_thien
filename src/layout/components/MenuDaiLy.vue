@@ -48,6 +48,15 @@
 						</a>
 					</router-link>
 				</li>
+				<li class="nav-item">
+					<router-link to="/dai-ly/thong-ke">
+						<a class="nav-link" href="/dai-ly/thong-ke">
+							<div class="parent-icon"><i class="fa-solid fa-chart-bar"></i>
+							</div>
+							<div class="menu-title">Thông Kê</div>
+						</a>
+					</router-link>
+				</li>
 			</ul>
 		</nav>
 	</div>

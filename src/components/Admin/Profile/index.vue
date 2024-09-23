@@ -36,7 +36,7 @@
                                                     style="width: 140px; height: 140px;" alt="Admin"
                                                     class="rounded-circle p-1 bg-primary">
                                                 <div class="mt-3">
-                                                    <h4>Nguyễn Quốc Long</h4>
+                                                    <h4>{{ nhan_vien.ho_va_ten }}</h4>
                                                     <p class="text-secondary mb-1">Nhân Viên</p>
                                                     <p class="text-muted font-size-sm">32 Xuân Diệu, Đà Nẵng</p>
                                                 </div>
@@ -52,8 +52,8 @@
                                                     <h6 class="mb-0">Họ và Tên</h6>
                                                 </div>
                                                 <div class="col-lg-9 text-secondary">
-                                                    <input type="text" class="form-control"
-                                                        placeholder="Nhập họ và tên">
+                                                    <input v-model="nhan_vien.ho_va_ten" type="text"
+                                                        class="form-control" placeholder="Nhập họ và tên">
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
@@ -61,7 +61,7 @@
                                                     <h6 class="mb-0">Email</h6>
                                                 </div>
                                                 <div class="col-lg-9 text-secondary">
-                                                    <input type="text" class="form-control"
+                                                    <input v-model="nhan_vien.email" type="text" class="form-control"
                                                         placeholder="Nhập email">
                                                 </div>
                                             </div>
@@ -70,7 +70,7 @@
                                                     <h6 class="mb-0">Số Điện Thoại</h6>
                                                 </div>
                                                 <div class="col-lg-9 text-secondary">
-                                                    <input type="text"
+                                                    <input v-model="nhan_vien.so_dien_thoai" type="text"
                                                         class="form-control" placeholder="Nhập số điện thoại">
                                                 </div>
                                             </div>
@@ -79,15 +79,14 @@
                                                     <h6 class="mb-0">Địa Chỉ</h6>
                                                 </div>
                                                 <div class="col-lg-9 text-secondary">
-                                                    <input type="text"
-                                                        class="form-control" placeholder="Nhập số điện thoại">
+                                                    <input v-model="nhan_vien.dia_chi" type="text" class="form-control"
+                                                        placeholder="Nhập số điện thoại">
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-lg-3"></div>
                                                 <div class="col-lg-9 text-secondary">
-                                                    <button type="button"
-                                                        class="btn btn-primary px-4">Lưu</button>
+                                                    <button type="button" class="btn btn-primary px-4">Lưu</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -136,8 +135,31 @@
     </div>
 </template>
 <script>
+import axios from 'axios';
+
 export default {
-    
+    data() {
+        return {
+            nhan_vien: {},
+        }
+    },
+
+    mounted() {
+        this.loadNhanVien();
+    },
+    methods: {
+        loadNhanVien() {
+            axios
+                .get('http://127.0.0.1:8000/api/admin/profile/data', {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_nhan_vien")
+                    }
+                })
+                .then((res) => {
+                    this.nhan_vien = res.data.data;
+                })
+        },
+    }
 }
 </script>
 <style></style>

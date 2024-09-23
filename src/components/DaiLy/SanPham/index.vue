@@ -23,7 +23,7 @@
                             </div>
                             <div class="mb-2">
                                 <label class="form-lable">Đơn Giá</label>
-                                <input v-model="create.don_gia" type="number" class="form-control">
+                                <input v-model="create.gia_ban" type="number" class="form-control">
                             </div>
                             <div class="mb-2">
                                 <label class="form-lable">Giá Khuyến Mãi</label>
@@ -53,7 +53,7 @@
                             </div>
                             <div class="mb-2">
                                 <label>Mô tả chỉ tiết</label>
-                                <textarea v-model="create.ma_ta_chi_tiet" class="form-control mt-2" cols="30"
+                                <textarea v-model="create.mo_ta_chi_tiet" class="form-control mt-2" cols="30"
                                     rows="5"></textarea>
                             </div>
                         </div>
@@ -79,55 +79,61 @@
                         <div class="col-lg-6">
                             <div class="mb-2">
                                 <label>Tên Sản Phẩm</label>
-                                <input type="text" class="form-control mt-2">
+                                <input v-model="edit_san_pham.ten_san_pham" type="text"
+                                    class="form-control mt-2">
                             </div>
                             <div class="mb-2">
                                 <label>Slug Sản phẩm</label>
-                                <input type="text" class="form-control mt-2">
+                                <input v-model="edit_san_pham.slug_san_pham" type="text" class="form-control mt-2">
                             </div>
                             <div class="mb-2">
                                 <label>Số Lượng</label>
-                                <input type="number" class="form-control mt-2">
+                                <input v-model="edit_san_pham.so_luong" type="number" class="form-control mt-2">
                             </div>
                             <div class="mb-2">
                                 <label>Giá bán</label>
-                                <input type="number" class="form-control mt-2">
+                                <input v-model="edit_san_pham.gia_ban" type="number" class="form-control mt-2">
                             </div>
                             <div class="mb-2">
                                 <label>Giá khuyến mãi</label>
-                                <input type="number" class="form-control mt-2">
+                                <input v-model="edit_san_pham.gia_khuyen_mai" type="number" class="form-control mt-2">
                             </div>
                             <div class="mb-2">
                                 <label>Sao Đánh Giá</label>
-                                <input type="number" class="form-control mt-2">
+                                <input v-model="edit_san_pham.sao_danh_gia" type="number" class="form-control mt-2">
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="mb-2">
                                 <label>Hình ảnh</label>
-                                <input type="text" class="form-control mt-2">
+                                <input v-model="edit_san_pham.hinh_anh" type="text" class="form-control mt-2">
                             </div>
                             <div class="mb-2">
-                                <label>Danh Mục</label>
-                                <select class="form-control mt-2">
-                                    <option value="1">Điện Thoại</option>
-                                    <option value="0">LapTop</option>
+                                <label>Tình trạng</label>
+                                <select v-model="edit_san_pham.tinh_trang" class="form-control mt-2">
+                                    <option value="1">Còn hàng</option>
+                                    <option value="0">Hết hàng</option>
                                 </select>
                             </div>
                             <div class="mb-2">
                                 <label>Mô tả ngắn</label>
-                                <input type="text" class="form-control mt-2">
+                                <input v-model="edit_san_pham.mo_ta_ngan" type="text" class="form-control mt-2">
                             </div>
                             <div class="mb-2">
                                 <label>Mô tả chỉ tiết</label>
-                                <textarea class="form-control mt-2" cols="30" rows="5"></textarea>
+                                <textarea v-model="edit_san_pham.mo_ta_chi_tiet" class="form-control mt-2" cols="30"
+                                    rows="5"></textarea>
+                            </div>
+                            <div class="mb-2">
+                                <label>Tag</label>
+                                <input v-model="edit_san_pham.tag" type="text" class="form-control mt-2">
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cập
+                    <button v-on:click="suaSanPham()" type="button" class="btn btn-primary" data-bs-dismiss="modal">Cập
                         nhật</button>
                 </div>
             </div>
@@ -142,12 +148,13 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Bạn có chắc muốn xóa sản phẩm <b class="text-danger">Iphone 16</b> này
+                    Bạn có chắc muốn xóa sản phẩm <b class="text-danger">{{ del_san_pham.ten_san_pham }}</b> này
                     không?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Xóa</button>
+                    <button v-on:click="xoaSanPham()" type="button" class="btn btn-danger"
+                        data-bs-dismiss="modal">Xóa</button>
                 </div>
             </div>
         </div>
@@ -217,10 +224,9 @@
                                     </td>
                                     <td class="align-middle text-center">{{ value.sao_danh_gia }}</td>
                                     <td class="align-middle">
-                                        <button class="btn btn-primary me-2" data-bs-toggle="modal"
-                                            data-bs-target="#suaSP">Cập
-                                            nhật</button>
-                                        <button class="btn btn-danger" data-bs-toggle="modal"
+                                        <button v-on:click="Object.assign(edit_san_pham, value)" class="btn btn-primary me-2"
+                                            data-bs-toggle="modal" data-bs-target="#suaSP">Cập nhật</button>
+                                        <button v-on:click="Object.assign(del_san_pham = value)" class="btn btn-danger" data-bs-toggle="modal"
                                             data-bs-target="#delSP">Xóa</button>
                                     </td>
                                 </tr>
@@ -248,6 +254,8 @@ export default {
                 'hinh_anh': '',
                 'sao_danh_gia': '',
             },
+            del_san_pham: {},
+            edit_san_pham: {},
             list_danh_muc: [],
             list_san_pham: [],
 
@@ -280,6 +288,7 @@ export default {
                 .then((res) => {
                     if (res.data.status) {
                         this.$toast.success(res.data.message);
+                        this.loadSanPham();
                     };
                     this.create = {
                         'id_danh_muc': '',
@@ -291,7 +300,35 @@ export default {
                         'sao_danh_gia': '',
                     }
                 })
-        }
+        },
+        suaSanPham() {
+            axios
+                .post("http://127.0.0.1:8000/api/dai-ly/san-pham/update", this.edit_san_pham)
+                .then((res) => {
+                    if (res.data.status) {
+                        var thong_bao = '<b>Thông báo</b><span style="margin-top: 5px">' + res.data.message + '<span>';
+                        this.$toast.success(thong_bao);
+                        this.loadSanPham();
+                    } else {
+                        var thong_bao = '<b>Thông báo</b><span style="margin-top: 5px">' + res.data.message + '<span>';
+                        this.$toast.error(thong_bao);
+                    }
+                })
+        },
+        xoaSanPham() {
+            axios
+                .post("http://127.0.0.1:8000/api/dai-ly/san-pham/delete", this.del_san_pham)
+                .then((res) => {
+                    if (res.data.status) {
+                        var thong_bao = '<b>Thông báo</b><span style="margin-top: 5px">' + res.data.message + '<span>';
+                        this.$toast.success(thong_bao);
+                        this.loadSanPham();
+                    } else {
+                        var thong_bao = '<b>Thông báo</b><span style="margin-top: 5px">' + res.data.message + '<span>';
+                        this.$toast.error(thong_bao);
+                    }
+                })
+        },
     }
 }
 </script>
