@@ -310,7 +310,7 @@
                     </div>
                     <hr>
                     <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5 product-grid">
-                        <template v-for="(v, k) in list_flash_sale" :key="k">
+                        <template v-for="(v, k) in list_noi_bat" :key="k">
                             <div class="col d-flex">
                                 <div class="card flex-fill">
                                     <img v-bind:src="v.hinh_anh" class="card-img-top "
@@ -372,7 +372,7 @@
                     </div>
                     <hr>
                     <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5 product-grid">
-                        <template v-for="(v, k) in list_flash_sale" :key="k">
+                        <template v-for="(v, k) in list_hom_nay" :key="k">
                             <div class="col d-flex">
                                 <div class="card flex-fill">
                                     <img v-bind:src="v.hinh_anh" class="card-img-top "
