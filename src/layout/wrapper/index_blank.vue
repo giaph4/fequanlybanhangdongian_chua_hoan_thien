@@ -1,10 +1,6 @@
 <template>
     <div class="wrapper">
-        <div class="page-wrapper">
-            <div class="page-content">
-                <router-view> </router-view>
-            </div>
-        </div>
+        <router-view> </router-view>
     </div>
 </template>
 <script>

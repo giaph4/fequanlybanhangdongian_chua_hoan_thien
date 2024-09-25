@@ -75,37 +75,37 @@ const routes = [
         path: "/dai-ly/san-pham",
         component: () => import("../components/DaiLy/SanPham/index.vue"),
         meta: { layout: "daily" },
-        // beforeEnter: checkLoginDL
+        beforeEnter: checkLoginDL
     },
     {
         path: "/dai-ly/profile",
         component: () => import("../components/DaiLy/Profile/index.vue"),
         meta: { layout: "daily" },
-        // beforeEnter: checkLoginDL
+        beforeEnter: checkLoginDL
     },
     {
         path: "/dai-ly/nhap-kho",
         component: () => import("../components/DaiLy/NhapKho/index.vue"),
         meta: { layout: "daily" },
-        // beforeEnter: checkLoginDL
+        beforeEnter: checkLoginDL
     },
     {
         path: "/dai-ly/danh-sach-nhap-kho",
         component: () => import("../components/DaiLy/DanhSachNhapKho/index.vue"),
         meta: { layout: "daily" },
-        // beforeEnter: checkLoginDL
+        beforeEnter: checkLoginDL
     },
     {
         path: "/dai-ly/don-hang",
         component: () => import("../components/DaiLy/DonHang/index.vue"),
         meta: { layout: "daily" },
-        // beforeEnter: checkLoginDL
+        beforeEnter: checkLoginDL
     },
     {
         path: "/dai-ly/thong-ke",
         component: () => import("../components/DaiLy/ThongKe/index.vue"),
         meta: { layout: "daily" },
-        // beforeEnter: checkLoginDL
+        beforeEnter: checkLoginDL
     },
     //------------------------------KHACHHANG---------------------------------//
     {
@@ -135,19 +135,19 @@ const routes = [
         path: "/khach-hang/gio-hang",
         component: () => import("../components/KhachHang/GioHang/index.vue"),
         meta: { layout: "client" },
-        // beforeEnter: checkLoginKH
+        beforeEnter: checkLoginKH
     },
     {
         path: "/khach-hang/don-hang",
         component: () => import("../components/KhachHang/DonHang/index.vue"),
         meta: { layout: "client" },
-        // beforeEnter: checkLoginKH
+        beforeEnter: checkLoginKH
     },
     {
         path: "/khach-hang/profile",
         component: () => import("../components/KhachHang/Profile/index.vue"),
         meta: { layout: "client" },
-        // beforeEnter: checkLoginKH
+        beforeEnter: checkLoginKH
     },
     //------------------------------TRANGCHU---------------------------------//
     {

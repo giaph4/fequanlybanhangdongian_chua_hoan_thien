@@ -36,9 +36,10 @@
                                                     style="width: 140px; height: 140px;" alt="Admin"
                                                     class="rounded-circle p-1 bg-primary">
                                                 <div class="mt-3">
-                                                    <h4>Nguyễn Quốc Long</h4>
+                                                    <h4>{{ profile.ten_doanh_nghiep }}</h4>
                                                     <p class="text-secondary mb-1">Đại Lý</p>
-                                                    <p class="text-muted font-size-sm">32 Xuân Diệu</p>
+                                                    <p class="text-muted font-size-sm">{{ profile.dia_chi_kinh_doanh }}
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -52,7 +53,7 @@
                                                     <h6 class="mb-0">Họ và Tên</h6>
                                                 </div>
                                                 <div class="col-lg-9 text-secondary">
-                                                    <input type="text" class="form-control"
+                                                    <input v-model="profile.ho_va_ten" type="text" class="form-control"
                                                         placeholder="Nhập họ và tên">
                                                 </div>
                                             </div>
@@ -61,8 +62,7 @@
                                                     <h6 class="mb-0">Email</h6>
                                                 </div>
                                                 <div class="col-lg-9 text-secondary">
-                                                    <input type="text" class="form-control"
-                                                        placeholder="Nhập email">
+                                                    <label class="form-control">{{ profile.email }}</label>
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
@@ -70,7 +70,7 @@
                                                     <h6 class="mb-0">Số Điện Thoại</h6>
                                                 </div>
                                                 <div class="col-lg-9 text-secondary">
-                                                    <input type="text"
+                                                    <input v-model="profile.so_dien_thoai" type="text"
                                                         class="form-control" placeholder="Nhập số điện thoại">
                                                 </div>
                                             </div>
@@ -79,8 +79,8 @@
                                                     <h6 class="mb-0">Ngày Sinh</h6>
                                                 </div>
                                                 <div class="col-lg-9 text-secondary">
-                                                    <input type="date"
-                                                        class="form-control" placeholder="Nhập ngày sinh">
+                                                    <input v-model="profile.ngay_sinh" type="date" class="form-control"
+                                                        placeholder="Nhập ngày sinh">
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
@@ -88,7 +88,7 @@
                                                     <h6 class="mb-0">Tên Doanh Nghiệp</h6>
                                                 </div>
                                                 <div class="col-lg-9 text-secondary">
-                                                    <input type="text"
+                                                    <input v-model="profile.ten_doanh_nghiep" type="text"
                                                         class="form-control" placeholder="Nhập tên doanh nghiệp">
                                                 </div>
                                             </div>
@@ -97,8 +97,8 @@
                                                     <h6 class="mb-0">Mã Số Thuế</h6>
                                                 </div>
                                                 <div class="col-lg-9 text-secondary">
-                                                    <input type="text"
-                                                        class="form-control" placeholder="Nhập mã số thuế">
+                                                    <input v-model="profile.ma_so_thue" type="text" class="form-control"
+                                                        placeholder="Nhập mã số thuế">
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
@@ -106,15 +106,14 @@
                                                     <h6 class="mb-0">Địa Chỉ Kinh Doanh</h6>
                                                 </div>
                                                 <div class="col-lg-9 text-secondary">
-                                                    <input type="text"
+                                                    <input v-model="profile.dia_chi_kinh_doanh" type="text"
                                                         class="form-control" placeholder="Nhập địa chỉ kinh dôanh">
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-lg-3"></div>
                                                 <div class="col-lg-9 text-secondary">
-                                                    <button type="button"
-                                                        class="btn btn-primary px-4">Lưu</button>
+                                                    <button v-on:click="updateProdile()"  type="button" class="btn btn-primary px-4">Lưu</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -163,8 +162,43 @@
     </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
-    
+    data() {
+        return {
+            profile: {},
+        }
+    },
+    mounted() {
+        this.loadData();
+    },
+    methods: {
+        loadData() {
+            axios
+                .get("http://127.0.0.1:8000/api/dai-ly/profile/data", {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_dai_ly")
+                    }
+                })
+                .then((res) => {
+                    this.profile = res.data.data;
+                });
+        },
+        updateProdile() {
+            axios
+                .post("http://127.0.0.1:8000/api/dai-ly/profile/update", this.profile, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem("tk_dai_ly")
+                    }
+                })
+                .then((res) => {
+                    if(res.data.status) {
+                        this.$toast.success(res.data.message);
+                        this.loadData();
+                    }
+                });
+        }
+    },
 }
 </script>
 <style></style>

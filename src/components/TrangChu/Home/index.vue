@@ -228,11 +228,10 @@
                     </div>
                     <hr>
                     <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5 product-grid">
-                        <div class="col d-flex">
-                            <a href="/chitietsp.html">
+                        <template v-for="(v, k) in list_flash_sale" :key="k">
+                            <div class="col d-flex">
                                 <div class="card flex-fill">
-                                    <img src="https://img.lazcdn.com/g/p/f3e3ca48a00ac3e2fa31e09722bf4129.jpg_400x400q80.jpg_.webp"
-                                        class="card-img-top "
+                                    <img v-bind:src="v.hinh_anh" class="card-img-top "
                                         style="    width: 100%; height: 230px; object-fit: contain; vertical-align: middle;"
                                         alt="...">
                                     <div class="">
@@ -240,171 +239,34 @@
                                                 class="badge bg-success mt-2">sale</span></div>
                                     </div>
                                     <div class="card-body d-flex flex-column">
-                                        <h6 class="card-title cursor-pointer">Vivo Y16 2022</h6>
+                                        <router-link :to="`/chi-tiet-san-pham/` + 2">
+                                            <h6 class="card-title cursor-pointer">{{ v.ten_san_pham }}</h6>
+                                        </router-link>
                                         <div class="mt-auto">
                                             <div class="d-flex align-items-center fs-6">
                                                 <div class="cursor-pointer">
-                                                    <i class="bx bxs-star text-warning"></i>
-                                                    <i class="bx bxs-star text-warning"></i>
-                                                    <i class="bx bxs-star text-warning"></i>
-                                                    <i class="bx bxs-star text-warning"></i>
-                                                    <i class="bx bxs-star text-secondary"></i>
+                                                    <template v-for="items in v.sao_danh_gia" :key="items">
+                                                        <i class="bx bxs-star text-warning"></i>
+                                                    </template>
+                                                    <template v-for="items in (5 - v.sao_danh_gia)" :key="items">
+                                                        <i class="bx bxs-star text-secondary"></i>
+                                                    </template>
                                                 </div>
                                                 <p class="mb-0 ms-auto">4.2(182)</p>
                                             </div>
                                             <div class="clearfix mt-2">
                                                 <p class="mb-0 float-end fw-bold"><span
-                                                        class="me-2 text-decoration-line-through text-muted">1,000,000đ</span><span
-                                                        class="fs-5 text-danger">544,030đ</span>
+                                                        class="me-2 text-decoration-line-through text-muted">{{
+                                                            v.gia_ban }}</span><span class="fs-5 text-danger">{{
+                                                            v.gia_khuyen_mai }}</span>
                                                 </p>
                                             </div>
                                         </div>
 
                                     </div>
                                 </div>
-                            </a>
-
-                        </div>
-                        <div class="col d-flex">
-                            <div class="card flex-fill">
-                                <img src="https://img.lazcdn.com/g/p/6dca6eeb121e327883fe96e5adb0713a.jpg_400x400q80.jpg_.webp"
-                                    class="card-img-top "
-                                    style="    width: 100%; height: 230px; object-fit: contain; vertical-align: middle;"
-                                    alt="...">
-                                <div class="">
-                                    <div class="position-absolute top-0 end-0 m-3 product-discount"><span
-                                            class="badge bg-danger mt-2">New</span></div>
-                                </div>
-                                <div class="card-body d-flex flex-column">
-                                    <h6 class="card-title cursor-pointer">KOETSU【COD】🏖️ Women's swimsuit
-                                    </h6>
-                                    <div class="mt-auto">
-                                        <div class="d-flex align-items-center fs-6">
-                                            <div class="cursor-pointer">
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-secondary"></i>
-                                            </div>
-                                            <p class="mb-0 ms-auto">4.2(182)</p>
-                                        </div>
-                                        <div class="clearfix mt-2">
-                                            <p class="mb-0 float-end fw-bold"><span
-                                                    class="me-2 text-decoration-line-through text-muted">1,000,000đ</span><span
-                                                    class="fs-5 text-danger">544,030đ</span>
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                </div>
                             </div>
-                        </div>
-                        <div class="col d-flex">
-                            <div class="card flex-fill">
-                                <img src="https://img.lazcdn.com/g/p/c9680e9a01a60d94a7849936579ebe66.jpg_400x400q80.jpg_.webp"
-                                    class="card-img-top "
-                                    style="    width: 100%; height: 230px; object-fit: contain; vertical-align: middle;"
-                                    alt="...">
-                                <div class="">
-                                    <div class="position-absolute top-0 end-0 m-3 product-discount"><span
-                                            class="badge bg-success mt-2">sale</span></div>
-                                </div>
-                                <div class="card-body d-flex flex-column">
-                                    <h6 class="card-title cursor-pointer">[DEAL SIÊU HOT] PIN SẠC DỰ PHÒNG 20000MAH CAO
-                                        CẤP, SẠC DỰ PHÒNG MINI 4IN1 THIẾT KẾ HIỆN ĐẠI SANG TRỌNG</h6>
-                                    <div class="mt-auto">
-                                        <div class="d-flex align-items-center fs-6">
-                                            <div class="cursor-pointer">
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-secondary"></i>
-                                            </div>
-                                            <p class="mb-0 ms-auto">4.2(182)</p>
-                                        </div>
-                                        <div class="clearfix mt-2">
-                                            <p class="mb-0 float-end fw-bold"><span
-                                                    class="me-2 text-decoration-line-through text-muted">1,000,000đ</span><span
-                                                    class="fs-5 text-danger">544,030đ</span>
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col d-flex">
-                            <div class="card flex-fill">
-                                <img src="https://img.lazcdn.com/g/p/97ac7a619594c687e417db020709de4d.jpg_400x400q80.jpg_.webp"
-                                    class="card-img-top "
-                                    style="    width: 100%; height: 230px; object-fit: contain; vertical-align: middle;"
-                                    alt="...">
-                                <div class="">
-                                    <div class="position-absolute top-0 end-0 m-3 product-discount"><span
-                                            class="badge bg-danger mt-2">New</span></div>
-                                </div>
-                                <div class="card-body d-flex flex-column">
-                                    <h6 class="card-title cursor-pointer">Balo nữ đi học cặp học sinh câp 2 3 ba lô du
-                                        lịch hot trend
-                                    </h6>
-                                    <div class="mt-auto">
-                                        <div class="d-flex align-items-center fs-6">
-                                            <div class="cursor-pointer">
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-secondary"></i>
-                                            </div>
-                                            <p class="mb-0 ms-auto">4.2(182)</p>
-                                        </div>
-                                        <div class="clearfix mt-2">
-                                            <p class="mb-0 float-end fw-bold"><span
-                                                    class="me-2 text-decoration-line-through text-muted">1,000,000đ</span><span
-                                                    class="fs-5 text-danger">544,030đ</span>
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col d-flex">
-                            <div class="card flex-fill">
-                                <img src="https://img.lazcdn.com/g/p/59c4de3382e889ae1d7884c0ef4815f6.jpg_400x400q80.jpg_.webp"
-                                    class="card-img-top "
-                                    style="    width: 100%; height: 230px; object-fit: contain; vertical-align: middle;"
-                                    alt="...">
-                                <div class="">
-                                    <div class="position-absolute top-0 end-0 m-3 product-discount"><span
-                                            class="badge bg-success mt-2">sale</span></div>
-                                </div>
-                                <div class="card-body d-flex flex-column">
-                                    <h6 class="card-title cursor-pointer">CHÂN VÁY XÒE PHỐI NÚT CÔNG SỞ</h6>
-                                    <div class="mt-auto">
-                                        <div class="d-flex align-items-center fs-6">
-                                            <div class="cursor-pointer">
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-secondary"></i>
-                                            </div>
-                                            <p class="mb-0 ms-auto">4.2(182)</p>
-                                        </div>
-                                        <div class="clearfix mt-2">
-                                            <p class="mb-0 float-end fw-bold"><span
-                                                    class="me-2 text-decoration-line-through text-muted">1,000,000đ</span><span
-                                                    class="fs-5 text-danger">544,030đ</span>
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
+                        </template>
                     </div>
                 </div>
             </div>
@@ -448,186 +310,45 @@
                     </div>
                     <hr>
                     <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5 product-grid">
-                        <div class="col d-flex">
-                            <div class="card flex-fill">
-                                <img src="https://img.lazcdn.com/g/p/76e72a7a27ff05e7332281401089ad0d.jpg_400x400q80.jpg_.webp"
-                                    class="card-img-top "
-                                    style="    width: 100%; height: 230px; object-fit: contain; vertical-align: middle;"
-                                    alt="...">
-                                <div class="">
-                                    <div class="position-absolute top-0 end-0 m-3 product-discount"><span
-                                            class="badge bg-success mt-2">sale</span></div>
-                                </div>
-                                <div class="card-body d-flex flex-column">
-                                    <h6 class="card-title cursor-pointer">Chinese Style Hairpin Women Metal Vintage
-                                        Flower Tassel Ancient Style Hairpin Hanfu Chinese Hair Stick Pin Hair
-                                        Accessories</h6>
-                                    <div class="mt-auto">
-                                        <div class="d-flex align-items-center fs-6">
-                                            <div class="cursor-pointer">
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-secondary"></i>
-                                            </div>
-                                            <p class="mb-0 ms-auto">4.2(182)</p>
-                                        </div>
-                                        <div class="clearfix mt-2">
-                                            <p class="mb-0 float-end fw-bold"><span
-                                                    class="me-2 text-decoration-line-through text-muted">1,000,000đ</span><span
-                                                    class="fs-5 text-danger">544,030đ</span>
-                                            </p>
-                                        </div>
+                        <template v-for="(v, k) in list_flash_sale" :key="k">
+                            <div class="col d-flex">
+                                <div class="card flex-fill">
+                                    <img v-bind:src="v.hinh_anh" class="card-img-top "
+                                        style="    width: 100%; height: 230px; object-fit: contain; vertical-align: middle;"
+                                        alt="...">
+                                    <div class="">
+                                        <div class="position-absolute top-0 end-0 m-3 product-discount"><span
+                                                class="badge bg-danger mt-2">hot</span></div>
                                     </div>
+                                    <div class="card-body d-flex flex-column">
+                                        <router-link :to="`/chi-tiet-san-pham/` + 2">
+                                            <h6 class="card-title cursor-pointer">{{ v.ten_san_pham }}</h6>
+                                        </router-link>
+                                        <div class="mt-auto">
+                                            <div class="d-flex align-items-center fs-6">
+                                                <div class="cursor-pointer">
+                                                    <template v-for="items in v.sao_danh_gia" :key="items">
+                                                        <i class="bx bxs-star text-warning"></i>
+                                                    </template>
+                                                    <template v-for="items in (5 - v.sao_danh_gia)" :key="items">
+                                                        <i class="bx bxs-star text-secondary"></i>
+                                                    </template>
+                                                </div>
+                                                <p class="mb-0 ms-auto">4.2(182)</p>
+                                            </div>
+                                            <div class="clearfix mt-2">
+                                                <p class="mb-0 float-end fw-bold"><span
+                                                        class="me-2 text-decoration-line-through text-muted">{{
+                                                            v.gia_ban }}</span><span class="fs-5 text-danger">{{
+                                                            v.gia_khuyen_mai }}</span>
+                                                </p>
+                                            </div>
+                                        </div>
 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col d-flex">
-                            <div class="card flex-fill">
-                                <img src="https://img.lazcdn.com/g/p/cf03b78f64b71b811ead9515837f5ce7.png_400x400q80.png_.webp"
-                                    class="card-img-top "
-                                    style="    width: 100%; height: 230px; object-fit: contain; vertical-align: middle;"
-                                    alt="...">
-                                <div class="">
-                                    <div class="position-absolute top-0 end-0 m-3 product-discount"><span
-                                            class="badge bg-danger mt-2">New</span></div>
-                                </div>
-                                <div class="card-body d-flex flex-column">
-                                    <h6 class="card-title cursor-pointer">Áo Hoodie nam nữ WHENEVER 💙 Sang Chảnh chất
-                                        Nỉ PE Thu Đông In Nổi 3D Form Rộng Boy phố có nón hai lớp dây rút Áo Khoác
-                                        Unisex Thu Đông Dài Tay Ba Màu - NỈ STORE 01
-                                    </h6>
-                                    <div class="mt-auto">
-                                        <div class="d-flex align-items-center fs-6">
-                                            <div class="cursor-pointer">
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-secondary"></i>
-                                            </div>
-                                            <p class="mb-0 ms-auto">4.2(182)</p>
-                                        </div>
-                                        <div class="clearfix mt-2">
-                                            <p class="mb-0 float-end fw-bold"><span
-                                                    class="me-2 text-decoration-line-through text-muted">1,000,000đ</span><span
-                                                    class="fs-5 text-danger">544,030đ</span>
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col d-flex">
-                            <div class="card flex-fill">
-                                <img src="https://img.lazcdn.com/g/p/01c1f184df4a0750e33bc106af489a58.jpg_400x400q80.jpg_.webp"
-                                    class="card-img-top "
-                                    style="    width: 100%; height: 230px; object-fit: contain; vertical-align: middle;"
-                                    alt="...">
-                                <div class="">
-                                    <div class="position-absolute top-0 end-0 m-3 product-discount"><span
-                                            class="badge bg-success mt-2">sale</span></div>
-                                </div>
-                                <div class="card-body d-flex flex-column">
-                                    <h6 class="card-title cursor-pointer">Dao Lọc Thịt Dao Thái Nhà Bếp Đa Năng Siêu Bén
-                                        Vân Chìm Bọc Đầu Rồng Vàng Có Vỏ</h6>
-                                    <div class="mt-auto">
-                                        <div class="d-flex align-items-center fs-6">
-                                            <div class="cursor-pointer">
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-secondary"></i>
-                                            </div>
-                                            <p class="mb-0 ms-auto">4.2(182)</p>
-                                        </div>
-                                        <div class="clearfix mt-2">
-                                            <p class="mb-0 float-end fw-bold"><span
-                                                    class="me-2 text-decoration-line-through text-muted">1,000,000đ</span><span
-                                                    class="fs-5 text-danger">544,030đ</span>
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col d-flex">
-                            <div class="card flex-fill">
-                                <img src="https://img.lazcdn.com/g/p/ef21df305b34b67c9d3231035431e9f2.jpg_400x400q80.jpg_.webp"
-                                    class="card-img-top "
-                                    style="    width: 100%; height: 230px; object-fit: contain; vertical-align: middle;"
-                                    alt="...">
-                                <div class="">
-                                    <div class="position-absolute top-0 end-0 m-3 product-discount"><span
-                                            class="badge bg-danger mt-2">New</span></div>
-                                </div>
-                                <div class="card-body d-flex flex-column">
-                                    <h6 class="card-title cursor-pointer">Sạc Dự Phòng Không Dây Iphone 5000mah, Pin Dự
-                                        Phòng Iphone8/X/11/12/13/14, Công Xuất Lớn 20W, Nam Châm Mặt Lưng, Sạc Nhanh
-                                        Iphone An Toàn
-                                    </h6>
-                                    <div class="mt-auto">
-                                        <div class="d-flex align-items-center fs-6">
-                                            <div class="cursor-pointer">
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-secondary"></i>
-                                            </div>
-                                            <p class="mb-0 ms-auto">4.2(182)</p>
-                                        </div>
-                                        <div class="clearfix mt-2">
-                                            <p class="mb-0 float-end fw-bold"><span
-                                                    class="me-2 text-decoration-line-through text-muted">1,000,000đ</span><span
-                                                    class="fs-5 text-danger">544,030đ</span>
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col d-flex">
-                            <div class="card flex-fill">
-                                <img src="https://img.lazcdn.com/g/p/871a71ee3c9db301f2d69ca3c448ab05.png_400x400q80.png_.webp"
-                                    class="card-img-top "
-                                    style="    width: 100%; height: 230px; object-fit: contain; vertical-align: middle;"
-                                    alt="...">
-                                <div class="">
-                                    <div class="position-absolute top-0 end-0 m-3 product-discount"><span
-                                            class="badge bg-success mt-2">sale</span></div>
-                                </div>
-                                <div class="card-body d-flex flex-column">
-                                    <h6 class="card-title cursor-pointer">Ví nữ ngắn hoa tulip gập 3 mini nhỏ gọn bỏ túi
-                                        đựng tiền nhiều ngăn thời trang Hàn Quốc cao cấp đẹp giá rẻ LUKADO VN70</h6>
-                                    <div class="mt-auto">
-                                        <div class="d-flex align-items-center fs-6">
-                                            <div class="cursor-pointer">
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-secondary"></i>
-                                            </div>
-                                            <p class="mb-0 ms-auto">4.2(182)</p>
-                                        </div>
-                                        <div class="clearfix mt-2">
-                                            <p class="mb-0 float-end fw-bold"><span
-                                                    class="me-2 text-decoration-line-through text-muted">1,000,000đ</span><span
-                                                    class="fs-5 text-danger">544,030đ</span>
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
+                        </template>
                     </div>
                 </div>
             </div>
@@ -651,182 +372,45 @@
                     </div>
                     <hr>
                     <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5 product-grid">
-                        <div class="col d-flex">
-                            <div class="card flex-fill">
-                                <img src="https://img.lazcdn.com/g/p/e2dfff15ecfce0c7636d4ceee9c89961.jpg_400x400q80.jpg_.webp"
-                                    class="card-img-top "
-                                    style="    width: 100%; height: 230px; object-fit: contain; vertical-align: middle;"
-                                    alt="...">
-                                <div class="">
-                                    <div class="position-absolute top-0 end-0 m-3 product-discount"><span
-                                            class="badge bg-success mt-2">sale</span></div>
-                                </div>
-                                <div class="card-body d-flex flex-column">
-                                    <h6 class="card-title cursor-pointer">12 TWS Earphonei Cute 6 Color Wireless
-                                        Bluetooth Earphones Inpods Headset HiFi Sports Earbuds Colorful</h6>
-                                    <div class="mt-auto">
-                                        <div class="d-flex align-items-center fs-6">
-                                            <div class="cursor-pointer">
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-secondary"></i>
-                                            </div>
-                                            <p class="mb-0 ms-auto">4.2(182)</p>
-                                        </div>
-                                        <div class="clearfix mt-2">
-                                            <p class="mb-0 float-end fw-bold"><span
-                                                    class="me-2 text-decoration-line-through text-muted">1,000,000đ</span><span
-                                                    class="fs-5 text-danger">544,030đ</span>
-                                            </p>
-                                        </div>
+                        <template v-for="(v, k) in list_flash_sale" :key="k">
+                            <div class="col d-flex">
+                                <div class="card flex-fill">
+                                    <img v-bind:src="v.hinh_anh" class="card-img-top "
+                                        style="    width: 100%; height: 230px; object-fit: contain; vertical-align: middle;"
+                                        alt="...">
+                                    <div class="">
+                                        <div class="position-absolute top-0 end-0 m-3 product-discount"><span
+                                                class="badge bg-warning mt-2">new</span></div>
                                     </div>
+                                    <div class="card-body d-flex flex-column">
+                                        <router-link :to="`/chi-tiet-san-pham/` + 2">
+                                            <h6 class="card-title cursor-pointer">{{ v.ten_san_pham }}</h6>
+                                        </router-link>
+                                        <div class="mt-auto">
+                                            <div class="d-flex align-items-center fs-6">
+                                                <div class="cursor-pointer">
+                                                    <template v-for="items in v.sao_danh_gia" :key="items">
+                                                        <i class="bx bxs-star text-warning"></i>
+                                                    </template>
+                                                    <template v-for="items in (5 - v.sao_danh_gia)" :key="items">
+                                                        <i class="bx bxs-star text-secondary"></i>
+                                                    </template>
+                                                </div>
+                                                <p class="mb-0 ms-auto">4.2(182)</p>
+                                            </div>
+                                            <div class="clearfix mt-2">
+                                                <p class="mb-0 float-end fw-bold"><span
+                                                        class="me-2 text-decoration-line-through text-muted">{{
+                                                            v.gia_ban }}</span><span class="fs-5 text-danger">{{
+                                                            v.gia_khuyen_mai }}</span>
+                                                </p>
+                                            </div>
+                                        </div>
 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col d-flex">
-                            <div class="card flex-fill">
-                                <img src="https://img.lazcdn.com/g/p/31cd4abf48e893d422fe99a67b25e53c.jpg_400x400q80.jpg_.webp"
-                                    class="card-img-top "
-                                    style="    width: 100%; height: 230px; object-fit: contain; vertical-align: middle;"
-                                    alt="...">
-                                <div class="">
-                                    <div class="position-absolute top-0 end-0 m-3 product-discount"><span
-                                            class="badge bg-danger mt-2">New</span></div>
-                                </div>
-                                <div class="card-body d-flex flex-column">
-                                    <h6 class="card-title cursor-pointer">Cáp Sạc Nhanh 3 Đầu Siêu Bền, Dùng Cho Tất Cả
-                                        Các Điện Thoại SmartPhone, Sạc Nhanh 3 Trong
-                                    </h6>
-                                    <div class="mt-auto">
-                                        <div class="d-flex align-items-center fs-6">
-                                            <div class="cursor-pointer">
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-secondary"></i>
-                                            </div>
-                                            <p class="mb-0 ms-auto">4.2(182)</p>
-                                        </div>
-                                        <div class="clearfix mt-2">
-                                            <p class="mb-0 float-end fw-bold"><span
-                                                    class="me-2 text-decoration-line-through text-muted">1,000,000đ</span><span
-                                                    class="fs-5 text-danger">544,030đ</span>
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col d-flex">
-                            <div class="card flex-fill">
-                                <img src="https://img.lazcdn.com/g/ff/kf/S7874b2b345c04d89929f9c59bf3ea6e9E.jpg_400x400q80.jpg_.webp"
-                                    class="card-img-top "
-                                    style="    width: 100%; height: 230px; object-fit: contain; vertical-align: middle;"
-                                    alt="...">
-                                <div class="">
-                                    <div class="position-absolute top-0 end-0 m-3 product-discount"><span
-                                            class="badge bg-success mt-2">sale</span></div>
-                                </div>
-                                <div class="card-body d-flex flex-column">
-                                    <h6 class="card-title cursor-pointer">iPhone 15 Promax</h6>
-                                    <div class="mt-auto">
-                                        <div class="d-flex align-items-center fs-6">
-                                            <div class="cursor-pointer">
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-secondary"></i>
-                                            </div>
-                                            <p class="mb-0 ms-auto">4.2(182)</p>
-                                        </div>
-                                        <div class="clearfix mt-2">
-                                            <p class="mb-0 float-end fw-bold"><span
-                                                    class="me-2 text-decoration-line-through text-muted">1,000,000đ</span><span
-                                                    class="fs-5 text-danger">544,030đ</span>
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col d-flex">
-                            <div class="card flex-fill">
-                                <img src="https://img.lazcdn.com/g/p/a1a5e0205f59c0f62e6497114fe6db5f.png_400x400q80.png_.webp"
-                                    class="card-img-top "
-                                    style="    width: 100%; height: 230px; object-fit: contain; vertical-align: middle;"
-                                    alt="...">
-                                <div class="">
-                                    <div class="position-absolute top-0 end-0 m-3 product-discount"><span
-                                            class="badge bg-danger mt-2">New</span></div>
-                                </div>
-                                <div class="card-body d-flex flex-column">
-                                    <h6 class="card-title cursor-pointer">Ổ cắm điện đa năng 6 Cổng Sạc USB 2 Cáp USB 3
-                                        Và 5M Dây Cáp Dày Chất Lượng Cao 100% Chính Hãng 2023 New
-                                    </h6>
-                                    <div class="mt-auto">
-                                        <div class="d-flex align-items-center fs-6">
-                                            <div class="cursor-pointer">
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-secondary"></i>
-                                            </div>
-                                            <p class="mb-0 ms-auto">4.2(182)</p>
-                                        </div>
-                                        <div class="clearfix mt-2">
-                                            <p class="mb-0 float-end fw-bold"><span
-                                                    class="me-2 text-decoration-line-through text-muted">1,000,000đ</span><span
-                                                    class="fs-5 text-danger">544,030đ</span>
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col d-flex">
-                            <div class="card flex-fill">
-                                <img src="https://img.lazcdn.com/g/p/8eb0581380a44a9485e0206a32345ef8.jpg_400x400q80.jpg_.webp"
-                                    class="card-img-top "
-                                    style="    width: 100%; height: 230px; object-fit: contain; vertical-align: middle;"
-                                    alt="...">
-                                <div class="">
-                                    <div class="position-absolute top-0 end-0 m-3 product-discount"><span
-                                            class="badge bg-success mt-2">sale</span></div>
-                                </div>
-                                <div class="card-body d-flex flex-column">
-                                    <h6 class="card-title cursor-pointer">Túi đeo chéo nữ canvas rẻ, đẹp style Hàn Quốc
-                                    </h6>
-                                    <div class="mt-auto">
-                                        <div class="d-flex align-items-center fs-6">
-                                            <div class="cursor-pointer">
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-warning"></i>
-                                                <i class="bx bxs-star text-secondary"></i>
-                                            </div>
-                                            <p class="mb-0 ms-auto">4.2(182)</p>
-                                        </div>
-                                        <div class="clearfix mt-2">
-                                            <p class="mb-0 float-end fw-bold"><span
-                                                    class="me-2 text-decoration-line-through text-muted">1,000,000đ</span><span
-                                                    class="fs-5 text-danger">544,030đ</span>
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
+                        </template>
                     </div>
                 </div>
             </div>
@@ -834,8 +418,29 @@
     </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
-
+    data() {
+        return {
+            list_flash_sale: [],
+            list_noi_bat: [],
+            list_hom_nay: [],
+        }
+    },
+    mounted() {
+        this.loadData();
+    },
+    methods: {
+        loadData() {
+            axios
+                .get("http://127.0.0.1:8000/api/trang-chu/san-pham/data")
+                .then((res) => {
+                    this.list_flash_sale = res.data.is_flash_sale;
+                    this.list_noi_bat = res.data.is_noi_bat;
+                    this.list_hom_nay = res.data.is_hom_nay;
+                });
+        }
+    },
 }
 </script>
 <style></style>
