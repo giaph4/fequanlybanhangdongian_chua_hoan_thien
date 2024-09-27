@@ -59,7 +59,7 @@
                         </div>
                     </div>
                     <div class="card-body d-flex flex-column">
-                        <router-link :to="`/chi-tiet-san-pham/` + 2">
+                        <router-link :to="`/chi-tiet-san-pham/` + v.id + '-' + v.slug_san_pham">
                             <h6 class="card-title cursor-pointer">{{ v.ten_san_pham }}</h6>
                         </router-link>
                         <div class="mt-auto">
@@ -91,9 +91,11 @@
 <script>
 import axios from 'axios'
 export default {
+    props: ['id_danh_muc'],
     data() {
         return {
             list: [],
+            id_danh_muc: this.$route.params.id_danh_muc,
         }
     },
     mounted() {
@@ -101,8 +103,11 @@ export default {
     },
     methods: {
         loadData() {
+            var payload = {
+                'id_danh_muc': this.id_danh_muc,
+            };
             axios
-                .get("http://127.0.0.1:8000/api/trang-chu/danh-muc-san-pham/data")
+                .post("http://127.0.0.1:8000/api/trang-chu/san-pham-theo-danh-muc", payload)
                 .then((res) => {
                     this.list = res.data.data;
                 });

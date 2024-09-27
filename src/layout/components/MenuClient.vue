@@ -19,31 +19,42 @@
                         <div class="menu-title">Home</div>
                     </a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a href="javascript:;" class="nav-link dropdown-toggle dropdown-toggle-nocaret"
-                        data-bs-toggle="dropdown">
-                        <div class="parent-icon"><i class='bx bx-spa'></i>
-                        </div>
-                        <div class="menu-title">Sản Phẩm</div>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li> <a class="dropdown-item" href="index.html"><i class="bx bx-right-arrow-alt"></i>Laptop</a>
-                        </li>
-                        <li> <a class="dropdown-item" href="index2.html"><i class="bx bx-right-arrow-alt"></i>Điện
-                                Thoại</a>
-                        </li>
-                        <li> <a class="dropdown-item" href="index3.html"><i class="bx bx-right-arrow-alt"></i>Quần
-                                Áo</a>
-                        </li>
-                    </ul>
-                </li>
+                <template v-for="(v, k) in list_danh_muc" :key="k">
+                    <li class="nav-item">
+                        <router-link :to="'/danh-muc/' + v.id + '-' + v.slug_danh_muc">
+                            <a class="nav-link" href="'/danh-muc/' + v.id + '-' + v.slug_danh_muc">
+                                <div class="parent-icon">
+                                    <span v-html="v.icon_danh_muc"></span>
+                                </div>
+                                <div class="menu-title">{{ v.ten_danh_muc }}</div>
+                            </a>
+                        </router-link>
+                    </li>
+                </template>
             </ul>
         </nav>
     </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
-    
+    data() {
+        return {
+            list_danh_muc: [],
+        }
+    },
+    mounted() {
+        this.loadData();
+    },
+    methods: {
+        loadData() {
+            axios
+                .get("http://127.0.0.1:8000/api/trang-chu/danh-muc/data")
+                .then((res) => {
+                    this.list_danh_muc = res.data.data;
+                });
+        }
+    },
 }
 </script>
 <style></style>

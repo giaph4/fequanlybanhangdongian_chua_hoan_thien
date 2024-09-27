@@ -57,162 +57,23 @@
     <div class="row mt-5">
         <div class="col-lg-12 col-md-12">
             <div class="row">
-                <div class="col-lg-2 mb-2 d-flex">
-                    <div class="card flex-fill  ">
-                        <div class="card-body">
-                            <div class="text-center d-flex flex-column justify-content-center">
-                                <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2">
-                                    <i class="fas fa-couch fa-xl fa-fw"></i>
-                                </button>
-                                <div class="text-dark">Interior items</div>
+                <template v-for="(v, k) in list_danh_muc" :key="k">
+                    <div class="col-lg-2 mb-2 d-flex">
+                        <div class="card flex-fill  ">
+                            <div class="card-body">
+                                <div class="text-center d-flex flex-column justify-content-center">
+                                    <router-link :to="'/danh-muc/' + v.id + '-' + v.slug_danh_muc">
+                                        <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2">
+                                            <span v-html="v.icon_danh_muc"></span>
+                                        </button>
+                                    </router-link>
+                                    <div class="text-dark">{{ v.ten_danh_muc }}</div>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                </div>
-                <div class="col-lg-2 mb-2 d-flex">
-                    <div class="card flex-fill  ">
-                        <div class="card-body">
-                            <div class="text-center d-flex flex-column justify-content-center">
-                                <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2">
-                                    <i class="fas fa-basketball-ball fa-xl fa-fw"></i>
-                                </button>
-                                <div class="text-dark">Sport and travel</div>
-                            </div>
-                        </div>
                     </div>
-
-                </div>
-                <div class="col-lg-2 mb-2 d-flex">
-                    <div class="card flex-fill  ">
-                        <div class="card-body">
-                            <div class="text-center d-flex flex-column justify-content-center">
-                                <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2">
-                                    <i class="fas fa-ring fa-xl fa-fw"></i>
-                                </button>
-                                <div class="text-dark">Jewellery</div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-lg-2 mb-2 d-flex">
-                    <div class="card flex-fill  ">
-                        <div class="card-body">
-                            <div class="text-center d-flex flex-column justify-content-center">
-                                <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2">
-                                    <i class="fas fa-clock fa-xl fa-fw"></i>
-                                </button>
-                                <div class="text-dark">Accessories</div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-lg-2 mb-2 d-flex">
-                    <div class="card flex-fill  ">
-                        <div class="card-body">
-                            <div class="text-center d-flex flex-column justify-content-center">
-                                <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2">
-                                    <i class="fas fa-car-side fa-xl fa-fw"></i>
-                                </button>
-                                <div class="text-dark">Automobiles</div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-lg-2 mb-2 d-flex">
-                    <div class="card flex-fill  ">
-                        <div class="card-body">
-                            <div class="text-center d-flex flex-column justify-content-center">
-                                <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2">
-                                    <i class="fas fa-home fa-xl fa-fw"></i>
-                                </button>
-                                <div class="text-dark">Home items</div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-lg-2 mb-2 d-flex">
-                    <div class="card flex-fill  ">
-                        <div class="card-body">
-                            <div class="text-center d-flex flex-column justify-content-center">
-                                <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2">
-                                    <i class="fas fa-guitar fa-xl fa-fw"></i>
-                                </button>
-                                <div class="text-dark">Musical items</div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-lg-2 mb-2 d-flex">
-                    <div class="card flex-fill  ">
-                        <div class="card-body">
-                            <div class="text-center d-flex flex-column justify-content-center">
-                                <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2">
-                                    <i class="fas fa-book fa-xl fa-fw"></i>
-                                </button>
-                                <div class="text-dark">Book, reading</div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-lg-2 mb-2 d-flex">
-                    <div class="card flex-fill  ">
-                        <div class="card-body">
-                            <div class="text-center d-flex flex-column justify-content-center">
-                                <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2">
-                                    <i class="fas fa-baby-carriage fa-xl fa-fw"></i>
-                                </button>
-                                <div class="text-dark">Kid's toys</div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-lg-2 mb-2 d-flex">
-                    <div class="card flex-fill  ">
-                        <div class="card-body">
-                            <div class="text-center d-flex flex-column justify-content-center">
-                                <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2">
-                                    <i class="fas fa-paw fa-xl fa-fw"></i>
-                                </button>
-                                <div class="text-dark">Pet items</div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-lg-2 mb-2 d-flex">
-                    <div class="card flex-fill  ">
-                        <div class="card-body">
-                            <div class="text-center d-flex flex-column justify-content-center">
-                                <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2">
-                                    <i class="fas fa-tshirt fa-xl fa-fw"></i>
-                                </button>
-                                <div class="text-dark">Men's clothing</div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-lg-2 mb-2 d-flex">
-                    <div class="card flex-fill  ">
-                        <div class="card-body">
-                            <div class="text-center d-flex flex-column justify-content-center">
-                                <button type="button" class="btn btn-outline-secondary mx-auto p-3 mb-2">
-                                    <i class="fas fa-shoe-prints fa-xl fa-fw"></i>
-                                </button>
-                                <div class="text-dark">Men's clothing</div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+                </template>
             </div>
         </div>
     </div>
@@ -239,7 +100,7 @@
                                                 class="badge bg-success mt-2">sale</span></div>
                                     </div>
                                     <div class="card-body d-flex flex-column">
-                                        <router-link :to="`/chi-tiet-san-pham/` + 2">
+                                        <router-link :to="`/chi-tiet-san-pham/` + v.id + '-' + v.slug_san_pham">
                                             <h6 class="card-title cursor-pointer">{{ v.ten_san_pham }}</h6>
                                         </router-link>
                                         <div class="mt-auto">
@@ -321,7 +182,7 @@
                                                 class="badge bg-danger mt-2">hot</span></div>
                                     </div>
                                     <div class="card-body d-flex flex-column">
-                                        <router-link :to="`/chi-tiet-san-pham/` + 2">
+                                        <router-link :to="`/chi-tiet-san-pham/` + v.id + '-' + v.slug_san_pham">
                                             <h6 class="card-title cursor-pointer">{{ v.ten_san_pham }}</h6>
                                         </router-link>
                                         <div class="mt-auto">
@@ -383,7 +244,7 @@
                                                 class="badge bg-warning mt-2">new</span></div>
                                     </div>
                                     <div class="card-body d-flex flex-column">
-                                        <router-link :to="`/chi-tiet-san-pham/` + 2">
+                                        <router-link :to="`/chi-tiet-san-pham/` + v.id + '-' + v.slug_san_pham">
                                             <h6 class="card-title cursor-pointer">{{ v.ten_san_pham }}</h6>
                                         </router-link>
                                         <div class="mt-auto">
@@ -425,10 +286,12 @@ export default {
             list_flash_sale: [],
             list_noi_bat: [],
             list_hom_nay: [],
+            list_danh_muc: [],
         }
     },
     mounted() {
         this.loadData();
+        this.loadDataDanhMuc();
     },
     methods: {
         loadData() {
@@ -438,6 +301,13 @@ export default {
                     this.list_flash_sale = res.data.is_flash_sale;
                     this.list_noi_bat = res.data.is_noi_bat;
                     this.list_hom_nay = res.data.is_hom_nay;
+                });
+        },
+        loadDataDanhMuc() {
+            axios
+                .get("http://127.0.0.1:8000/api/trang-chu/danh-muc/data")
+                .then((res) => {
+                    this.list_danh_muc = res.data.data;
                 });
         }
     },

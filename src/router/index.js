@@ -156,12 +156,13 @@ const routes = [
         meta: { layout: "client" },
     },
     {
-        path: "/danh-muc-san-pham",
+        path: "/danh-muc/:id_danh_muc-:slug_danh_muc",
         component: () => import("../components/TrangChu/DanhMucSanPham/index.vue"),
         meta: { layout: "client" },
+        props: true
     },
     {
-        path: "/chi-tiet-san-pham/:id_san_pham",
+        path: "/chi-tiet-san-pham/:id_san_pham-:slug_san_pham",
         component: () => import("../components/TrangChu/ChiTietSanPham/index.vue"),
         meta: { layout: "client" },
         props: true
