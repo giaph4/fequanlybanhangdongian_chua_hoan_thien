@@ -76,6 +76,7 @@ export default {
                         this.$toast.success(res.data.message);
                         // Lưu lại ở trình duyệt
                         localStorage.setItem('tk_dai_ly', res.data.id);
+                        this.$router.push('/dai-ly/san-pham');
                     } else {
                         this.$toast.error(res.data.message);
                     }

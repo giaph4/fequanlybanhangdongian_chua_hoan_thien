@@ -70,6 +70,7 @@ export default {
                     if (res.data.status) {
                         this.$toast.success(res.data.message);
                         localStorage.setItem('tk_nhan_vien', res.data.id);
+                        this.$router.push('/admin/danh-muc');
                     } else {
                         this.$toast.error(res.data.message);
                     }

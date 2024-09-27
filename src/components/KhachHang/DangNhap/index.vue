@@ -80,6 +80,7 @@ export default {
             if(res.data.status) {
                 this.$toast.success(res.data.message);
                 localStorage.setItem('tk_khach_hang', res.data.id);
+                this.$router.push('/khach-hang/profile');
             } else {
                 this.$toast.error(res.data.message);
             }
